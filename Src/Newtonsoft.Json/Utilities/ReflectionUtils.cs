@@ -43,7 +43,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace Newtonsoft.Json.Utilities
 {
-#if (NETFX_CORE || PORTABLE || PORTABLE40)
+#if (NETFX_CORE || PORTABLE || PORTABLE40) && !DOT42
     internal enum MemberTypes
     {
         Property = 0,
@@ -231,7 +231,6 @@ namespace Newtonsoft.Json.Utilities
             BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.Public;
             if (nonPublic)
                 bindingFlags = bindingFlags | BindingFlags.NonPublic;
-
             return t.GetConstructors(bindingFlags).SingleOrDefault(c => !c.GetParameters().Any());
         }
 
@@ -1024,7 +1023,7 @@ namespace Newtonsoft.Json.Utilities
 #endif
                 case PrimitiveTypeCode.Guid:
                     return new Guid();
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
                 case PrimitiveTypeCode.DateTimeOffset:
                     return new DateTimeOffset();
 #endif

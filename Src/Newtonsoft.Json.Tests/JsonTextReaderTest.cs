@@ -363,9 +363,10 @@ third line", jsonTextReader.Value);
 
             string s = reader.Value.ToString();
             Assert.AreEqual(2, s.Length);
-
+#if !DOT42
             StringInfo stringInfo = new StringInfo(s);
             Assert.AreEqual(1, stringInfo.LengthInTextElements);
+#endif
         }
 
         [Test]
@@ -1827,7 +1828,7 @@ third line", jsonTextReader.Value);
             ExceptionAssert.Throws<JsonReaderException>(() => { reader.ReadAsBytes(); }, "Unexpected end when reading bytes. Path '', line 1, position 1.");
         }
 
-#if !NET20
+#if !(NET20 || DOT42)
         [Test]
         public void ReadAsDateTimeOffsetNoContent()
         {
@@ -1854,7 +1855,7 @@ third line", jsonTextReader.Value);
             ExceptionAssert.Throws<JsonReaderException>(() => { reader.ReadAsBytes(); }, "Error reading bytes. Unexpected token: StartConstructor. Path '', line 1, position 9.");
         }
 
-#if !NET20
+#if !(NET20 || DOT42)
         [Test]
         public void ReadAsDateTimeOffsetBadContent()
         {
@@ -1939,7 +1940,7 @@ third line", jsonTextReader.Value);
             Assert.AreEqual(JsonToken.EndObject, reader.TokenType);
         }
 
-#if !NET20
+#if !(NET20 || DOT42)
         [Test]
         public void ReadAsDateTimeOffset()
         {
@@ -3047,7 +3048,7 @@ null//comment
             Assert.AreEqual(typeof(DateTime), reader.ValueType);
             Assert.IsTrue(reader.Read());
 
-#if !NET20
+#if !(NET20 || DOT42)
             reader = new JsonTextReader(new StringReader(json));
             reader.DateParseHandling = Json.DateParseHandling.DateTimeOffset;
 
@@ -3073,7 +3074,7 @@ null//comment
             Assert.AreEqual(typeof(string), reader.ValueType);
             Assert.IsTrue(reader.Read());
 
-#if !NET20
+#if !(NET20 || DOT42)
             reader = new JsonTextReader(new StringReader(json));
             reader.DateParseHandling = Json.DateParseHandling.DateTime;
 

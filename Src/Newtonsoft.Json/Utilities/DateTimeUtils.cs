@@ -50,7 +50,7 @@ namespace Newtonsoft.Json.Utilities
 
         public static TimeSpan GetUtcOffset(this DateTime d)
         {
-#if NET20
+#if NET20 
             return TimeZone.CurrentTimeZone.GetUtcOffset(d);
 #else
             return TimeZoneInfo.Local.GetUtcOffset(d);
@@ -199,7 +199,7 @@ namespace Newtonsoft.Json.Utilities
             DateTime d = new DateTime(dateTimeParser.Year, dateTimeParser.Month, dateTimeParser.Day, dateTimeParser.Hour, dateTimeParser.Minute, dateTimeParser.Second);
             d = d.AddTicks(dateTimeParser.Fraction);
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
             if (dateParseHandling == DateParseHandling.DateTimeOffset)
             {
                 TimeSpan offset;
@@ -345,7 +345,7 @@ namespace Newtonsoft.Json.Utilities
 
             DateTime utcDateTime = ConvertJavaScriptTicksToDateTime(javaScriptTicks);
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
             if (dateParseHandling == DateParseHandling.DateTimeOffset)
             {
                 dt = new DateTimeOffset(utcDateTime.Add(offset).Ticks, offset);
@@ -373,7 +373,7 @@ namespace Newtonsoft.Json.Utilities
 
         private static bool TryParseDateExact(string text, DateParseHandling dateParseHandling, DateTimeZoneHandling dateTimeZoneHandling, string dateFormatString, CultureInfo culture, out object dt)
         {
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
             if (dateParseHandling == DateParseHandling.DateTimeOffset)
             {
                 DateTimeOffset temp;
@@ -550,7 +550,7 @@ namespace Newtonsoft.Json.Utilities
             return start;
         }
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
         internal static void WriteDateTimeOffsetString(TextWriter writer, DateTimeOffset value, DateFormatHandling format, string formatString, CultureInfo culture)
         {
             if (string.IsNullOrEmpty(formatString))

@@ -28,7 +28,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using Newtonsoft.Json.Tests.TestObjects;
-#if !(NET20 || NET35 || PORTABLE || DNXCORE50)
+#if !(NET20 || NET35 || PORTABLE || DNXCORE50 || DOT42)
 using System.Numerics;
 #endif
 using System.Text;
@@ -319,7 +319,7 @@ namespace Newtonsoft.Json.Tests.Linq
         {
             Assert.IsTrue(JToken.DeepEquals(new JValue(5L), new JValue(5)));
             Assert.IsFalse(JToken.DeepEquals(new JValue(5M), new JValue(5)));
-            Assert.IsTrue(JToken.DeepEquals(new JValue((ulong)long.MaxValue), new JValue(long.MaxValue)));
+            Assert.IsTrue(JToken.DeepEquals(new JValue((ulong)long.MaxValue, JTokenType.Integer), new JValue(long.MaxValue)));
         }
 
         [Test]
@@ -419,7 +419,7 @@ namespace Newtonsoft.Json.Tests.Linq
             Assert.AreEqual(rate.Compoundings, rate2.Compoundings);
         }
 
-#if !NET20
+#if !(NET20 || DOT42)
         public class ObjectWithDateTimeOffset
         {
             public DateTimeOffset DateTimeOffset { get; set; }
@@ -545,7 +545,7 @@ namespace Newtonsoft.Json.Tests.Linq
         [Test]
         public void ConvertsToUInt64()
         {
-            Assert.AreEqual(UInt64.MaxValue, Convert.ToUInt64(new JValue(UInt64.MaxValue)));
+            Assert.AreEqual(UInt64.MaxValue, Convert.ToUInt64(new JValue(UInt64.MaxValue, JTokenType.Integer)));
         }
 
         [Test]
@@ -610,7 +610,7 @@ namespace Newtonsoft.Json.Tests.Linq
             Assert.AreEqual(new DateTime(2013, 02, 01, 01, 02, 03, 04), Convert.ToDateTime(new JValue(new DateTime(2013, 02, 01, 01, 02, 03, 04))));
         }
 
-#if !NET20
+#if !(NET20 || DOT42)
         [Test]
         public void ConvertsToDateTime_DateTimeOffset()
         {
@@ -668,7 +668,7 @@ namespace Newtonsoft.Json.Tests.Linq
             int i = (int)v.ToType(typeof(int), CultureInfo.InvariantCulture);
             Assert.AreEqual(9, i);
 
-#if !(NET20 || NET35 || PORTABLE || DNXCORE50)
+#if !(NET20 || NET35 || PORTABLE || DNXCORE50 || DOT42)
             BigInteger bi = (BigInteger)v.ToType(typeof(BigInteger), CultureInfo.InvariantCulture);
             Assert.AreEqual(new BigInteger(9), bi);
 #endif
@@ -701,7 +701,7 @@ namespace Newtonsoft.Json.Tests.Linq
         }
 #endif
 
-#if !NET20
+#if !(NET20|| DOT42)
         [Test]
         public void ParseIsoTimeZones()
         {

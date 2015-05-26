@@ -429,7 +429,7 @@ namespace Newtonsoft.Json.Bson
             AddValue(value, BsonType.Date);
         }
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
         /// <summary>
         /// Writes a <see cref="DateTimeOffset"/> value.
         /// </summary>

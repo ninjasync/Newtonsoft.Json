@@ -25,7 +25,7 @@
 
 using System;
 using System.Collections.Generic;
-#if !(NET20 || NET35 || PORTABLE || DNXCORE50)
+#if !(NET20 || NET35 || PORTABLE || DNXCORE50 || DOT42)
 using System.Numerics;
 #endif
 using System.Text;
@@ -92,7 +92,7 @@ namespace Newtonsoft.Json.Tests.Bson
             Assert.AreEqual("0F-00-00-00-10-42-6C-61-68-00-01-00-00-00-00", bson);
         }
 
-#if !NET20
+#if !NET20 && !DOT42
         [Test]
         public void WriteValues()
         {

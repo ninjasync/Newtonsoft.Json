@@ -331,7 +331,7 @@ namespace Newtonsoft.Json.Serialization
             {
                 InternalReadType = ReadType.ReadAsDateTime;
             }
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
             else if (NonNullableUnderlyingType == typeof(DateTimeOffset))
             {
                 InternalReadType = ReadType.ReadAsDateTimeOffset;

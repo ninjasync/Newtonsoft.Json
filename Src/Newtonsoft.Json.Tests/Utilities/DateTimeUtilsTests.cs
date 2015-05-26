@@ -164,7 +164,7 @@ namespace Newtonsoft.Json.Tests.Utilities
             AssertNewDateTimeParseEqual(text, oldDt);
         }
 
-#if !NET20
+#if !NET20 &&!DOT42
         [Test]
         public void NewDateTimeOffsetParse()
         {
@@ -216,7 +216,7 @@ namespace Newtonsoft.Json.Tests.Utilities
         {
             const string isoDateFormat = "yyyy-MM-ddTHH:mm:ss.FFFFFFFK";
 
-#if !NET20
+#if !(NET20 || DOT42)
             if (dateParseHandling == DateParseHandling.DateTimeOffset)
             {
                 DateTimeOffset dateTimeOffset;

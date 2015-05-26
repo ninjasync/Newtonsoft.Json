@@ -61,7 +61,7 @@ namespace Newtonsoft.Json.Tests.Linq
             }, "Could not convert string to integer: two. Path 'IntList[1]', line 1, position 20.");
         }
 
-#if !NET20
+#if !(NET20 || DOT42)
         [Test]
         public void YahooFinance()
         {

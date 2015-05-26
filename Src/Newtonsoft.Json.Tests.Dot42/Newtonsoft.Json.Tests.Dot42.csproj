@@ -1,0 +1,715 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F9D86B2F-5DC3-45F3-AF7B-9E159E27675F}</ProjectGuid>
+    <ProjectTypeGuids>{337B7DB7-2D1E-448D-BEBF-17E887A46E37};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Newtonsoft.Json.Tests.Dot42</RootNamespace>
+    <AssemblyName>Newtonsoft.Json.Tests.Dot42</AssemblyName>
+    <TargetFrameworkIdentifier>Android</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v4.3</TargetFrameworkVersion>
+    <AndroidVersion>$(TargetFrameworkVersion)</AndroidVersion>
+    <SupportedCultures>
+    </SupportedCultures>
+    <ApkOutputs>true</ApkOutputs>
+    <GenerateAndroidManifest>true</GenerateAndroidManifest>
+    <ApkFilename>Newtonsoft.Json.Tests.Dot42.apk</ApkFilename>
+    <PackageName>Newtonsoft.Json.Tests.Dot42</PackageName>
+    <Dot42ExtensionsPath Condition=" '$(Dot42ExtensionsPath)' == '' ">$(Registry:HKEY_CURRENT_USER\SOFTWARE\dot42\Android@ExtensionsPath)</Dot42ExtensionsPath>
+    <Dot42ExtensionsPath Condition=" '$(Dot42ExtensionsPath)' == '' ">$(Registry:HKEY_LOCAL_MACHINE\SOFTWARE\dot42\Android@ExtensionsPath)</Dot42ExtensionsPath>
+    <ApkCertificatePath>C:\Users\Olaf\Documents\KnutWG - Android-SelfSignedCertificate.pfx</ApkCertificatePath>
+    <ApkCertificateThumbprint>367EF983FCB50B5C4592B9807762EE42EF8D1E06</ApkCertificateThumbprint>
+    <TargetSdkAndroidVersion />
+    <GenerateWcfProxy>false</GenerateWcfProxy>
+    <GenerateSetNextInstructionCode>false</GenerateSetNextInstructionCode>
+    <EnableCompilerCache>false</EnableCompilerCache>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>TRACE;DEBUG;DOT42;PORTABLE40;DONT_HAVE_DATETIMEOFFSET;DONT_HAVE_MULTIDIMARRAYS;DONT_HAVE_FSHARP</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;DOT42;PORTABLE40;DONT_HAVE_DATETIMEOFFSET;DONT_HAVE_MULTIDIMARRAYS;DONT_HAVE_FSHARP</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dot42" />
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Newtonsoft.Json.Tests\Bson\BsonReaderTests.cs">
+      <Link>Tests\Bson\BsonReaderTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Bson\BsonWriterTests.cs">
+      <Link>Tests\Bson\BsonWriterTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\DemoTests.cs">
+      <Link>Tests\DemoTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Documentation\SerializationTests.cs">
+      <Link>Tests\Documentation\SerializationTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\ExceptionTests.cs">
+      <Link>Tests\ExceptionTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\JsonArrayAttributeTests.cs">
+      <Link>Tests\JsonArrayAttributeTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\JsonConvertTest.cs">
+      <Link>Tests\JsonConvertTest.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\JsonTextReaderTest.cs">
+      <Link>Tests\JsonTextReaderTest.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\JsonTextWriterTest.cs">
+      <Link>Tests\JsonTextWriterTest.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MyTestRunner.cs" />
+    <None Include="..\Newtonsoft.Json.Tests\JsonValidatingReaderTests.cs">
+      <Link>Tests\JsonValidatingReaderTests.cs</Link>
+    </None>
+    <None Include="..\Newtonsoft.Json.Tests\PerformanceTests.cs">
+      <Link>Tests\PerformanceTests.cs</Link>
+    </None>
+    <Compile Include="..\Newtonsoft.Json.Tests\Linq\AnnotationsTests.cs">
+      <Link>Tests\Linq\AnnotationsTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Linq\ComponentModel\BindingTests.cs">
+      <Link>Tests\Linq\ComponentModel\BindingTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Linq\ComponentModel\JPropertyDescriptorTests.cs">
+      <Link>Tests\Linq\ComponentModel\JPropertyDescriptorTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Linq\DynamicTests.cs">
+      <Link>Tests\Linq\DynamicTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Linq\JArrayTests.cs">
+      <Link>Tests\Linq\JArrayTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Linq\JConstructorTests.cs">
+      <Link>Tests\Linq\JConstructorTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Linq\JObjectTests.cs">
+      <Link>Tests\Linq\JObjectTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Linq\JPropertyTests.cs">
+      <Link>Tests\Linq\JPropertyTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Linq\JRawTests.cs">
+      <Link>Tests\Linq\JRawTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Linq\JsonPath\JPathExecuteTests.cs">
+      <Link>Tests\Linq\JsonPath\JPathExecuteTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Linq\JsonPath\JPathParseTests.cs">
+      <Link>Tests\Linq\JsonPath\JPathParseTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Linq\JsonPath\QueryExpressionTests.cs">
+      <Link>Tests\Linq\JsonPath\QueryExpressionTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Linq\JTokenEqualityComparerTests.cs">
+      <Link>Tests\Linq\JTokenEqualityComparerTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Linq\JTokenReaderTest.cs">
+      <Link>Tests\Linq\JTokenReaderTest.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Linq\JTokenTests.cs">
+      <Link>Tests\Linq\JTokenTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Linq\JTokenWriterTest.cs">
+      <Link>Tests\Linq\JTokenWriterTest.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Linq\JValueTests.cs">
+      <Link>Tests\Linq\JValueTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Linq\LinqToJsonTest.cs">
+      <Link>Tests\Linq\LinqToJsonTest.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Linq\MergeTests.cs">
+      <Link>Tests\Linq\MergeTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\CamelCasePropertyNamesContractResolverTests.cs">
+      <Link>Tests\Serialization\CamelCasePropertyNamesContractResolverTests.cs</Link>
+      <SubType>
+      </SubType>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\ConstructorHandlingTests.cs">
+      <Link>Tests\Serialization\ConstructorHandlingTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\ContractResolverTests.cs">
+      <Link>Tests\Serialization\ContractResolverTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\DefaultValueHandlingTests.cs">
+      <Link>Tests\Serialization\DefaultValueHandlingTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\DependencyInjectionTests.cs">
+      <Link>Tests\Serialization\DependencyInjectionTests.cs</Link>
+    </Compile>
+    <None Include="..\Newtonsoft.Json.Tests\Serialization\DynamicConcreteTests.cs">
+      <Link>Tests\Serialization\DynamicConcreteTests.cs</Link>
+    </None>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\DynamicTests.cs">
+      <Link>Tests\Serialization\DynamicTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\EntitiesSerializationTests.cs">
+      <Link>Tests\Serialization\EntitiesSerializationTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\ExtensionDataTests.cs">
+      <Link>Tests\Serialization\ExtensionDataTests.cs</Link>
+    </Compile>
+    <None Include="..\Newtonsoft.Json.Tests\Serialization\FSharpTests.cs">
+      <Link>Tests\Serialization\FSharpTests.cs</Link>
+    </None>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\ImmutableCollectionsTests.cs">
+      <Link>Tests\Serialization\ImmutableCollectionsTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\JsonPropertyCollectionTests.cs">
+      <Link>Tests\Serialization\JsonPropertyCollectionTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\JsonSerializerCollectionsTests.cs">
+      <Link>Tests\Serialization\JsonSerializerCollectionsTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\JsonSerializerTest.cs">
+      <Link>Tests\Serialization\JsonSerializerTest.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\MetadataPropertyHandlingTests.cs">
+      <Link>Tests\Serialization\MetadataPropertyHandlingTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\MissingMemberHandlingTests.cs">
+      <Link>Tests\Serialization\MissingMemberHandlingTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\NullValueHandlingTests.cs">
+      <Link>Tests\Serialization\NullValueHandlingTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\PopulateTests.cs">
+      <Link>Tests\Serialization\PopulateTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\PreserveReferencesHandlingTests.cs">
+      <Link>Tests\Serialization\PreserveReferencesHandlingTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\ReferenceLoopHandlingTests.cs">
+      <Link>Tests\Serialization\ReferenceLoopHandlingTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\ReflectionAttributeProviderTests.cs">
+      <Link>Tests\Serialization\ReflectionAttributeProviderTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\SerializationErrorHandlingTests.cs">
+      <Link>Tests\Serialization\SerializationErrorHandlingTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\SerializationEventAttributeTests.cs">
+      <Link>Tests\Serialization\SerializationEventAttributeTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\ShouldSerializeTests.cs">
+      <Link>Tests\Serialization\ShouldSerializeTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\TraceWriterTests.cs">
+      <Link>Tests\Serialization\TraceWriterTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\TypeNameHandlingTests.cs">
+      <Link>Tests\Serialization\TypeNameHandlingTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Serialization\WebApiIntegrationTests.cs">
+      <Link>Tests\Serialization\WebApiIntegrationTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestFixtureBase.cs">
+      <Link>Tests\TestFixtureBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Aa.cs">
+      <Link>Tests\TestObjects\Aa.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\AbstractGenericBase.cs">
+      <Link>Tests\TestObjects\AbstractGenericBase.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\AnswerFilterModel.cs">
+      <Link>Tests\TestObjects\AnswerFilterModel.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Antworten.cs">
+      <Link>Tests\TestObjects\Antworten.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\ArgumentConverterPrecedenceClassConverter.cs">
+      <Link>Tests\TestObjects\ArgumentConverterPrecedenceClassConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Article.cs">
+      <Link>Tests\TestObjects\Article.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\ArticleCollection.cs">
+      <Link>Tests\TestObjects\ArticleCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\BadJsonPropertyClass.cs">
+      <Link>Tests\TestObjects\BadJsonPropertyClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Bar.cs">
+      <Link>Tests\TestObjects\Bar.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Bb.cs">
+      <Link>Tests\TestObjects\Bb.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Car.cs">
+      <Link>Tests\TestObjects\Car.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\CircularReferenceClass.cs">
+      <Link>Tests\TestObjects\CircularReferenceClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\CircularReferenceWithIdClass.cs">
+      <Link>Tests\TestObjects\CircularReferenceWithIdClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\ClassAndMemberConverterClass.cs">
+      <Link>Tests\TestObjects\ClassAndMemberConverterClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\ClassConverterPrecedenceClassConverter.cs">
+      <Link>Tests\TestObjects\ClassConverterPrecedenceClassConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\ClassWithArray.cs">
+      <Link>Tests\TestObjects\ClassWithArray.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\ClassWithGuid.cs">
+      <Link>Tests\TestObjects\ClassWithGuid.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Component.cs">
+      <Link>Tests\TestObjects\Component.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Computer.cs">
+      <Link>Tests\TestObjects\Computer.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\ConstructorCaseSensitivityClass.cs">
+      <Link>Tests\TestObjects\ConstructorCaseSensitivityClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\ConstructorReadonlyFields.cs">
+      <Link>Tests\TestObjects\ConstructorReadonlyFields.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Container.cs">
+      <Link>Tests\TestObjects\Container.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Content.cs">
+      <Link>Tests\TestObjects\Content.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\ContentBaseClass.cs">
+      <Link>Tests\TestObjects\ContentBaseClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\ContentSubClass.cs">
+      <Link>Tests\TestObjects\ContentSubClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\ConverableMembers.cs">
+      <Link>Tests\TestObjects\ConverableMembers.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\ConverterPrecedenceClass.cs">
+      <Link>Tests\TestObjects\ConverterPrecedenceClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\ConverterPrecedenceClassConverter.cs">
+      <Link>Tests\TestObjects\ConverterPrecedenceClassConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\CustomerDataSet.cs">
+      <Link>Tests\TestObjects\CustomerDataSet.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\DataContractSerializationAttributesClass.cs">
+      <Link>Tests\TestObjects\DataContractSerializationAttributesClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\DateTimeErrorObjectCollection.cs">
+      <Link>Tests\TestObjects\DateTimeErrorObjectCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\DateTimeWrapper.cs">
+      <Link>Tests\TestObjects\DateTimeWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\DecimalTestClass.cs">
+      <Link>Tests\TestObjects\DecimalTestClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\DefaultValueAttributeTestClass.cs">
+      <Link>Tests\TestObjects\DefaultValueAttributeTestClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\DictionaryInterfaceClass.cs">
+      <Link>Tests\TestObjects\DictionaryInterfaceClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\DirectoryAccount.cs">
+      <Link>Tests\TestObjects\DirectoryAccount.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\DoubleClass.cs">
+      <Link>Tests\TestObjects\DoubleClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\EmployeeReference.cs">
+      <Link>Tests\TestObjects\EmployeeReference.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Event.cs">
+      <Link>Tests\TestObjects\Event.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Event1.cs">
+      <Link>Tests\TestObjects\Event1.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Foo.cs">
+      <Link>Tests\TestObjects\Foo.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\GameObject.cs">
+      <Link>Tests\TestObjects\GameObject.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\GenericImpl.cs">
+      <Link>Tests\TestObjects\GenericImpl.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\GenericListAndDictionaryInterfaceProperties.cs">
+      <Link>Tests\TestObjects\GenericListAndDictionaryInterfaceProperties.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\GetOnlyPropertyClass.cs">
+      <Link>Tests\TestObjects\GetOnlyPropertyClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\GoogleMapGeocoderStructure.cs">
+      <Link>Tests\TestObjects\GoogleMapGeocoderStructure.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\HolderClass.cs">
+      <Link>Tests\TestObjects\HolderClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\IdReferenceResolver.cs">
+      <Link>Tests\TestObjects\IdReferenceResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\IMyInterface.cs">
+      <Link>Tests\TestObjects\IMyInterface.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\IncompatibleJsonAttributeClass.cs">
+      <Link>Tests\TestObjects\IncompatibleJsonAttributeClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\InterfacePropertyTestClass.cs">
+      <Link>Tests\TestObjects\InterfacePropertyTestClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\IntToFloatConverter.cs">
+      <Link>Tests\TestObjects\IntToFloatConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Invoice.cs">
+      <Link>Tests\TestObjects\Invoice.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\IPrivateImplementationA.cs">
+      <Link>Tests\TestObjects\IPrivateImplementationA.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\IPrivateImplementationB.cs">
+      <Link>Tests\TestObjects\IPrivateImplementationB.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\IPrivateOverriddenImplementation.cs">
+      <Link>Tests\TestObjects\IPrivateOverriddenImplementation.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Item.cs">
+      <Link>Tests\TestObjects\Item.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\JaggedArray.cs">
+      <Link>Tests\TestObjects\JaggedArray.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\JsonIgnoreAttributeOnClassTestClass.cs">
+      <Link>Tests\TestObjects\JsonIgnoreAttributeOnClassTestClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\JsonIgnoreAttributeTestClass.cs">
+      <Link>Tests\TestObjects\JsonIgnoreAttributeTestClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\JsonPropertyClass.cs">
+      <Link>Tests\TestObjects\JsonPropertyClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\JsonPropertyWithHandlingValues.cs">
+      <Link>Tests\TestObjects\JsonPropertyWithHandlingValues.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\ListErrorObject.cs">
+      <Link>Tests\TestObjects\ListErrorObject.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\ListErrorObjectCollection.cs">
+      <Link>Tests\TestObjects\ListErrorObjectCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\ListOfIds.cs">
+      <Link>Tests\TestObjects\ListOfIds.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\ListTestClass.cs">
+      <Link>Tests\TestObjects\ListTestClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\LogEntry.cs">
+      <Link>Tests\TestObjects\LogEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\MemberConverterClass.cs">
+      <Link>Tests\TestObjects\MemberConverterClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\MemberConverterPrecedenceClassConverter.cs">
+      <Link>Tests\TestObjects\MemberConverterPrecedenceClassConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\MethodExecutorObject.cs">
+      <Link>Tests\TestObjects\MethodExecutorObject.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\MetroPropertyNameResolver.cs">
+      <Link>Tests\TestObjects\MetroPropertyNameResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\MetroStringConverter.cs">
+      <Link>Tests\TestObjects\MetroStringConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Movie.cs">
+      <Link>Tests\TestObjects\Movie.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\MyClass.cs">
+      <Link>Tests\TestObjects\MyClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Name.cs">
+      <Link>Tests\TestObjects\Name.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\NonRequest.cs">
+      <Link>Tests\TestObjects\NonRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\NullableGuid.cs">
+      <Link>Tests\TestObjects\NullableGuid.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\ObjectArrayPropertyTest.cs">
+      <Link>Tests\TestObjects\ObjectArrayPropertyTest.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Person.cs">
+      <Link>Tests\TestObjects\Person.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\PersonError.cs">
+      <Link>Tests\TestObjects\PersonError.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\PersonPropertyClass.cs">
+      <Link>Tests\TestObjects\PersonPropertyClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\PersonRaw.cs">
+      <Link>Tests\TestObjects\PersonRaw.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\PersonReference.cs">
+      <Link>Tests\TestObjects\PersonReference.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\PersonSerializable.cs">
+      <Link>Tests\TestObjects\PersonSerializable.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\PersonWithPrivateConstructor.cs">
+      <Link>Tests\TestObjects\PersonWithPrivateConstructor.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\PhoneNumber.cs">
+      <Link>Tests\TestObjects\PhoneNumber.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\PocoDataContractSerializationAttributesClass.cs">
+      <Link>Tests\TestObjects\PocoDataContractSerializationAttributesClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\PrivateConstructorTestClass.cs">
+      <Link>Tests\TestObjects\PrivateConstructorTestClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\PrivateConstructorWithPublicParametizedConstructorTestClass.cs">
+      <Link>Tests\TestObjects\PrivateConstructorWithPublicParametizedConstructorTestClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\PrivateImplementationAClass.cs">
+      <Link>Tests\TestObjects\PrivateImplementationAClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\PrivateImplementationBClass.cs">
+      <Link>Tests\TestObjects\PrivateImplementationBClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\PrivateMembersClass.cs">
+      <Link>Tests\TestObjects\PrivateMembersClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Product.cs">
+      <Link>Tests\TestObjects\Product.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\ProductCollection.cs">
+      <Link>Tests\TestObjects\ProductCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\ProductShort.cs">
+      <Link>Tests\TestObjects\ProductShort.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\PropertyCase.cs">
+      <Link>Tests\TestObjects\PropertyCase.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\PropertyItemConverter.cs">
+      <Link>Tests\TestObjects\PropertyItemConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\PublicParametizedConstructorRequiringConverterTestClass.cs">
+      <Link>Tests\TestObjects\PublicParametizedConstructorRequiringConverterTestClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\PublicParametizedConstructorTestClass.cs">
+      <Link>Tests\TestObjects\PublicParametizedConstructorTestClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\PublicParametizedConstructorWithNonPropertyParameterTestClass.cs">
+      <Link>Tests\TestObjects\PublicParametizedConstructorWithNonPropertyParameterTestClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\PublicParametizedConstructorWithPropertyNameConflict.cs">
+      <Link>Tests\TestObjects\PublicParametizedConstructorWithPropertyNameConflict.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Ratio.cs">
+      <Link>Tests\TestObjects\Ratio.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\RequestOnly.cs">
+      <Link>Tests\TestObjects\RequestOnly.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\RequiredMembersClass.cs">
+      <Link>Tests\TestObjects\RequiredMembersClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\RequiredObject.cs">
+      <Link>Tests\TestObjects\RequiredObject.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\RoleTransfer.cs">
+      <Link>Tests\TestObjects\RoleTransfer.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\SearchResult.cs">
+      <Link>Tests\TestObjects\SearchResult.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\SelectListItem.cs">
+      <Link>Tests\TestObjects\SelectListItem.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\SerializationEventTestDictionary.cs">
+      <Link>Tests\TestObjects\SerializationEventTestDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\SerializationEventTestList.cs">
+      <Link>Tests\TestObjects\SerializationEventTestList.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\SerializationEventTestObject.cs">
+      <Link>Tests\TestObjects\SerializationEventTestObject.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\SerializationEventTestObjectWithConstructor.cs">
+      <Link>Tests\TestObjects\SerializationEventTestObjectWithConstructor.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\SetOnlyPropertyClass.cs">
+      <Link>Tests\TestObjects\SetOnlyPropertyClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\SetOnlyPropertyClass2.cs">
+      <Link>Tests\TestObjects\SetOnlyPropertyClass2.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Shortie.cs">
+      <Link>Tests\TestObjects\Shortie.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Store.cs">
+      <Link>Tests\TestObjects\Store.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\StoreColor.cs">
+      <Link>Tests\TestObjects\StoreColor.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\StructTest.cs">
+      <Link>Tests\TestObjects\StructTest.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\SubKlass.cs">
+      <Link>Tests\TestObjects\SubKlass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\SuperKlass.cs">
+      <Link>Tests\TestObjects\SuperKlass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\TestComponent.cs">
+      <Link>Tests\TestObjects\TestComponent.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\TestComponentSimple.cs">
+      <Link>Tests\TestObjects\TestComponentSimple.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\TestObject.cs">
+      <Link>Tests\TestObjects\TestObject.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\TypeClass.cs">
+      <Link>Tests\TestObjects\TypeClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\TypedSubHashtable.cs">
+      <Link>Tests\TestObjects\TypedSubHashtable.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\UriGuidTimeSpanTestClass.cs">
+      <Link>Tests\TestObjects\UriGuidTimeSpanTestClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\UserNullable.cs">
+      <Link>Tests\TestObjects\UserNullable.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\VersionKeyedCollection.cs">
+      <Link>Tests\TestObjects\VersionKeyedCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\WagePerson.cs">
+      <Link>Tests\TestObjects\WagePerson.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Widget.cs">
+      <Link>Tests\TestObjects\Widget.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\Widget1.cs">
+      <Link>Tests\TestObjects\Widget1.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\WidgetId.cs">
+      <Link>Tests\TestObjects\WidgetId.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\WidgetId1.cs">
+      <Link>Tests\TestObjects\WidgetId1.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\WidgetIdJsonConverter.cs">
+      <Link>Tests\TestObjects\WidgetIdJsonConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\TestObjects\WithEnums.cs">
+      <Link>Tests\TestObjects\WithEnums.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Utilities\DateTimeUtilsTests.cs">
+      <Link>Utilities\DateTimeUtilsTests.cs</Link>
+    </Compile>
+    <None Include="..\Newtonsoft.Json.Tests\Utilities\DynamicReflectionDelegateFactoryTests.cs">
+      <Link>Utilities\DynamicReflectionDelegateFactoryTests.cs</Link>
+    </None>
+    <None Include="..\Newtonsoft.Json.Tests\Utilities\ExpressionReflectionDelegateFactoryTests.cs">
+      <Link>Utilities\ExpressionReflectionDelegateFactoryTests.cs</Link>
+    </None>
+    <Compile Include="..\Newtonsoft.Json.Tests\Utilities\LateboundReflectionDelegateFactoryTests.cs">
+      <Link>Utilities\LateboundReflectionDelegateFactoryTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Utilities\ReflectionUtilsTests.cs">
+      <Link>Utilities\ReflectionUtilsTests.cs</Link>
+    </Compile>
+    <Compile Include="..\Newtonsoft.Json.Tests\Utilities\StringUtilsTests.cs">
+      <Link>Utilities\StringUtilsTests.cs</Link>
+    </Compile>
+    <Compile Include="MainActivity.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <LayoutResource Include="MainLayout.xml" />
+  </ItemGroup>
+  <Import Project="$(Dot42ExtensionsPath)\Dot42.CSharp.targets" />
+  <ItemGroup>
+    <Compile Include="$(ResourcesGeneratedCodePath)R.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Newtonsoft.Json.Tests\large.json">
+      <Link>large.json</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\Newtonsoft.Json.Tests\packages.config">
+      <Link>packages.config</Link>
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="..\Newtonsoft.Json.Tests\SpaceShipV2.bson">
+      <Link>SpaceShipV2.bson</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <DrawableResource Include="..\Newtonsoft.Json.Tests\bunny_pancake.jpg">
+      <Link>bunny_pancake.jpg</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </DrawableResource>
+    <Content Include="..\Newtonsoft.Json.Tests\large_sample.xml">
+      <Link>large_sample.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Newtonsoft.Json.Tests\PoisonText.txt">
+      <Link>Tests\PoisonText.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Newtonsoft.Json.Dot42\Newtonsoft.Json.Dot42.csproj">
+      <Project>{8937f759-186c-48d8-9830-e80c5126a5cc}</Project>
+      <Name>Newtonsoft.Json.Dot42</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions />
+</Project>

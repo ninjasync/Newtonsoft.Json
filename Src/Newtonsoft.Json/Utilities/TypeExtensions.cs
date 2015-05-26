@@ -88,7 +88,7 @@ namespace Newtonsoft.Json.Utilities
 
         public static MethodInfo Method(this Delegate d)
         {
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || PORTABLE || DOT42)
             return d.Method;
 #else
             return d.GetMethodInfo();
@@ -97,7 +97,7 @@ namespace Newtonsoft.Json.Utilities
 
         public static MemberTypes MemberType(this MemberInfo memberInfo)
         {
-#if !(NETFX_CORE || PORTABLE || PORTABLE40)
+#if !(NETFX_CORE || PORTABLE || PORTABLE40) || DOT42
             return memberInfo.MemberType;
 #else
             if (memberInfo is PropertyInfo)

@@ -238,6 +238,7 @@ namespace Newtonsoft.Json.Utilities
             return dimensions;
         }
 
+#if !DONT_HAVE_MULTIDIMARRAYS
         private static void CopyFromJaggedToMultidimensionalArray(IList values, Array multidimensionalArray, int[] indices)
         {
             int dimension = indices.Length;
@@ -265,7 +266,7 @@ namespace Newtonsoft.Json.Utilities
                 CopyFromJaggedToMultidimensionalArray(values, multidimensionalArray, newIndices);
             }
         }
-
+#endif
         private static object JaggedArrayGetValue(IList values, int[] indices)
         {
             IList currentList = values;
@@ -279,7 +280,7 @@ namespace Newtonsoft.Json.Utilities
             }
             return currentList;
         }
-
+#if !DONT_HAVE_MULTIDIMARRAYS
         public static Array ToMultidimensionalArray(IList values, Type type, int rank)
         {
             IList<int> dimensions = GetDimensions(values, rank);
@@ -294,5 +295,6 @@ namespace Newtonsoft.Json.Utilities
 
             return multidimensionalArray;
         }
+#endif
     }
 }

@@ -41,7 +41,7 @@ using Assert = Newtonsoft.Json.Tests.XUnitAssert;
 #else
 using NUnit.Framework;
 #endif
-#if !(NETFX_CORE || NET20)
+#if !(NETFX_CORE || NET20 || DOT42)
 using System.Runtime.Serialization.Json;
 #endif
 using Newtonsoft.Json.Serialization;

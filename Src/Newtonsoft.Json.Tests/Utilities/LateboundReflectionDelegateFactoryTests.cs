@@ -52,7 +52,8 @@ namespace Newtonsoft.Json.Tests.Utilities
         [Test]
         public void ConstructorWithRefString()
         {
-            ConstructorInfo constructor = TestReflectionUtils.GetConstructors(typeof(OutAndRefTestClass)).Single(c => c.GetParameters().Count() == 1);
+            var constructors = TestReflectionUtils.GetConstructors(typeof (OutAndRefTestClass));
+            ConstructorInfo constructor = constructors.Single(c => c.GetParameters().Count() == 1);
 
             var creator = LateBoundReflectionDelegateFactory.Instance.CreateParametrizedConstructor(constructor);
 

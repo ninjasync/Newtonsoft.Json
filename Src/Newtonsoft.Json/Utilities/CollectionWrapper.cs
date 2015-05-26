@@ -42,6 +42,9 @@ namespace Newtonsoft.Json.Utilities
         object UnderlyingCollection { get; }
     }
 
+#if DOT42
+    [Dot42.IncludeType]
+#endif
     internal class CollectionWrapper<T> : ICollection<T>, IWrappedCollection
     {
         private readonly IList _list;
@@ -249,7 +252,6 @@ namespace Newtonsoft.Json.Utilities
             {
                 if (_syncRoot == null)
                     Interlocked.CompareExchange(ref _syncRoot, new object(), null);
-
                 return _syncRoot;
             }
         }

@@ -142,9 +142,8 @@ namespace Newtonsoft.Json.Utilities
         {
             if (!enumType.IsEnum())
                 throw new ArgumentException("Type '" + enumType.Name + "' is not an enum.");
-
+#if !DOT42
             List<object> values = new List<object>();
-
             var fields = enumType.GetFields().Where(f => f.IsLiteral);
 
             foreach (FieldInfo field in fields)
@@ -152,15 +151,20 @@ namespace Newtonsoft.Json.Utilities
                 object value = field.GetValue(enumType);
                 values.Add(value);
             }
-
             return values;
+#else
+            // DEX can't preserve order of fields
+            return Enum.GetValues(enumType)
+                       .Cast<object>()
+                       .ToList(); 
+#endif
         }
 
         public static IList<string> GetNames(Type enumType)
         {
             if (!enumType.IsEnum())
                 throw new ArgumentException("Type '" + enumType.Name + "' is not an enum.");
-
+#if !DOT42
             List<string> values = new List<string>();
 
             var fields = enumType.GetFields().Where(f => f.IsLiteral);
@@ -169,8 +173,12 @@ namespace Newtonsoft.Json.Utilities
             {
                 values.Add(field.Name);
             }
-
             return values;
+
+#else
+            // DEX can't preserve order of fields
+            return Enum.GetNames(enumType); 
+#endif
         }
 
         public static object ParseEnumName(string enumText, bool isNullable, Type t)

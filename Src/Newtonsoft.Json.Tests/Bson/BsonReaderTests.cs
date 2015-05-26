@@ -30,7 +30,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json.Tests.TestObjects;
-#if !(NET20 || NET35 || PORTABLE || DNXCORE50)
+#if !(NET20 || NET35 || PORTABLE || DNXCORE50 || DOT42)
 using System.Numerics;
 #endif
 using System.Text;

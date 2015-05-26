@@ -480,7 +480,7 @@ namespace Newtonsoft.Json.Linq
             return Convert.ToBoolean(v.Value, CultureInfo.InvariantCulture);
         }
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
         /// <summary>
         /// Performs an explicit conversion from <see cref="Newtonsoft.Json.Linq.JToken"/> to <see cref="System.DateTimeOffset"/>.
         /// </summary>
@@ -555,7 +555,7 @@ namespace Newtonsoft.Json.Linq
             if (v == null || !ValidateToken(v, DateTimeTypes, true))
                 throw new ArgumentException("Can not convert {0} to DateTime.".FormatWith(CultureInfo.InvariantCulture, GetType(value)));
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
             if (v.Value is DateTimeOffset)
                 return ((DateTimeOffset)v.Value).DateTime;
 #endif
@@ -563,7 +563,7 @@ namespace Newtonsoft.Json.Linq
             return (v.Value != null) ? (DateTime?)Convert.ToDateTime(v.Value, CultureInfo.InvariantCulture) : null;
         }
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
         /// <summary>
         /// Performs an explicit conversion from <see cref="Newtonsoft.Json.Linq.JToken"/> to <see cref="Nullable{DateTimeOffset}"/>.
         /// </summary>
@@ -894,7 +894,7 @@ namespace Newtonsoft.Json.Linq
             if (v == null || !ValidateToken(v, DateTimeTypes, false))
                 throw new ArgumentException("Can not convert {0} to DateTime.".FormatWith(CultureInfo.InvariantCulture, GetType(value)));
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
             if (v.Value is DateTimeOffset)
                 return ((DateTimeOffset)v.Value).DateTime;
 #endif
@@ -1271,7 +1271,7 @@ namespace Newtonsoft.Json.Linq
             return new JValue(value);
         }
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
         /// <summary>
         /// Performs an implicit conversion from <see cref="DateTimeOffset"/> to <see cref="JToken"/>.
         /// </summary>
@@ -1355,7 +1355,7 @@ namespace Newtonsoft.Json.Linq
             return new JValue(value);
         }
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
         /// <summary>
         /// Performs an implicit conversion from <see cref="Nullable{DateTimeOffset}"/> to <see cref="JToken"/>.
         /// </summary>
@@ -1562,7 +1562,7 @@ namespace Newtonsoft.Json.Linq
         [CLSCompliant(false)]
         public static implicit operator JToken(ulong value)
         {
-            return new JValue(value);
+            return new JValue(value, JTokenType.Integer);
         }
 
         /// <summary>
@@ -1781,7 +1781,7 @@ namespace Newtonsoft.Json.Linq
                         return (DateTime?)this;
                     case PrimitiveTypeCode.DateTime:
                         return (DateTime)this;
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
                     case PrimitiveTypeCode.DateTimeOffsetNullable:
                         return (DateTimeOffset?)this;
                     case PrimitiveTypeCode.DateTimeOffset:

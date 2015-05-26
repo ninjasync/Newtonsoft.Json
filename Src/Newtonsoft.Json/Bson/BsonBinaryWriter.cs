@@ -54,7 +54,7 @@ namespace Newtonsoft.Json.Bson
 
         public void Close()
         {
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || PORTABLE) || DOT42
             _writer.Close();
 #else
             _writer.Dispose();
@@ -148,7 +148,7 @@ namespace Newtonsoft.Json.Bson
 
                         ticks = DateTimeUtils.ConvertDateTimeToJavaScriptTicks(dateTime, false);
                     }
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
                     else
                     {
                         DateTimeOffset dateTimeOffset = (DateTimeOffset)value.Value;

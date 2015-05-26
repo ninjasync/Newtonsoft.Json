@@ -25,7 +25,7 @@
 
 using System;
 using System.Collections.Generic;
-#if !(NET20 || NET35 || PORTABLE || DNXCORE50)
+#if !(NET20 || NET35 || PORTABLE || DNXCORE50 || DOT42)
 using System.Numerics;
 #endif
 using System.Text;
@@ -90,7 +90,7 @@ namespace Newtonsoft.Json.Tests.Linq
             v = (JValue)JToken.ReadFrom(new JsonTextReader(new StringReader(@"1.1")));
             Assert.AreEqual(1.1, (double)v);
 
-#if !NET20
+#if !(NET20|| DOT42)
             v = (JValue)JToken.ReadFrom(new JsonTextReader(new StringReader(@"""1970-01-01T00:00:00+12:31"""))
             {
                 DateParseHandling = DateParseHandling.DateTimeOffset
@@ -242,7 +242,7 @@ namespace Newtonsoft.Json.Tests.Linq
             Assert.AreEqual(2L, (long)new JArray(1, 2, 3)[1]);
 
             Assert.AreEqual(new DateTime(2000, 12, 20), (DateTime)new JValue(new DateTime(2000, 12, 20)));
-#if !NET20
+#if !(NET20 || DOT42)
             Assert.AreEqual(new DateTimeOffset(2000, 12, 20, 0, 0, 0, TimeSpan.Zero), (DateTimeOffset)new JValue(new DateTime(2000, 12, 20, 0, 0, 0, DateTimeKind.Utc)));
             Assert.AreEqual(new DateTimeOffset(2000, 12, 20, 23, 50, 10, TimeSpan.Zero), (DateTimeOffset)new JValue(new DateTimeOffset(2000, 12, 20, 23, 50, 10, TimeSpan.Zero)));
             Assert.AreEqual(null, (DateTimeOffset?)new JValue((DateTimeOffset?)null));
@@ -281,8 +281,8 @@ namespace Newtonsoft.Json.Tests.Linq
             Assert.AreEqual(float.MinValue, (float)new JValue(float.MinValue));
             Assert.AreEqual(1.1, (double)new JValue(1.1));
             Assert.AreEqual(uint.MaxValue, (uint)new JValue(uint.MaxValue));
-            Assert.AreEqual(ulong.MaxValue, (ulong)new JValue(ulong.MaxValue));
-            Assert.AreEqual(ulong.MaxValue, (ulong)new JProperty("Test", new JValue(ulong.MaxValue)));
+            Assert.AreEqual(ulong.MaxValue, (ulong)new JValue(ulong.MaxValue, JTokenType.Integer));
+            Assert.AreEqual(ulong.MaxValue, (ulong)new JProperty("Test", new JValue(ulong.MaxValue, JTokenType.Integer)));
             Assert.AreEqual(null, (string)new JValue((string)null));
             Assert.AreEqual(5m, (decimal)(new JValue(5L)));
             Assert.AreEqual(5m, (decimal?)(new JValue(5L)));
@@ -302,7 +302,7 @@ namespace Newtonsoft.Json.Tests.Linq
             Assert.AreEqual(null, (string)(JValue.CreateNull()));
             Assert.AreEqual(null, (string)(JValue)null);
             Assert.AreEqual("12/12/2000 12:12:12", (string)(new JValue(new DateTime(2000, 12, 12, 12, 12, 12, DateTimeKind.Utc))));
-#if !NET20
+#if !(NET20 || DOT42)
             Assert.AreEqual("12/12/2000 12:12:12 +00:00", (string)(new JValue(new DateTimeOffset(2000, 12, 12, 12, 12, 12, TimeSpan.Zero))));
 #endif
             Assert.AreEqual(true, (bool)(new JValue(1)));
@@ -342,7 +342,7 @@ namespace Newtonsoft.Json.Tests.Linq
             Assert.AreEqual(null, (bool?)(JValue)null);
             Assert.AreEqual(null, (char?)(JValue)null);
             Assert.AreEqual(null, (DateTime?)(JValue)null);
-#if !NET20
+#if !(NET20 || DOT42)
             Assert.AreEqual(null, (DateTimeOffset?)(JValue)null);
 #endif
             Assert.AreEqual(null, (short?)(JValue)null);
@@ -408,7 +408,7 @@ namespace Newtonsoft.Json.Tests.Linq
             ExceptionAssert.Throws<ArgumentException>(() => { var i = (Uri)new JValue(TimeSpan.Zero); }, "Can not convert TimeSpan to Uri.");
             ExceptionAssert.Throws<ArgumentException>(() => { var i = (Uri)new JValue(Guid.NewGuid()); }, "Can not convert Guid to Uri.");
             ExceptionAssert.Throws<ArgumentException>(() => { var i = (Uri)new JValue(DateTime.Now); }, "Can not convert Date to Uri.");
-#if !NET20
+#if !(NET20 || DOT42)
             ExceptionAssert.Throws<ArgumentException>(() => { var i = (Uri)new JValue(DateTimeOffset.Now); }, "Can not convert Date to Uri.");
 #endif
 
@@ -419,7 +419,7 @@ namespace Newtonsoft.Json.Tests.Linq
             ExceptionAssert.Throws<ArgumentException>(() => { var i = (TimeSpan)JValue.CreateNull(); }, "Can not convert Null to TimeSpan.");
             ExceptionAssert.Throws<ArgumentException>(() => { var i = (TimeSpan)new JValue(Guid.NewGuid()); }, "Can not convert Guid to TimeSpan.");
             ExceptionAssert.Throws<ArgumentException>(() => { var i = (TimeSpan)new JValue(DateTime.Now); }, "Can not convert Date to TimeSpan.");
-#if !NET20
+#if !(NET20 || DOT42)
             ExceptionAssert.Throws<ArgumentException>(() => { var i = (TimeSpan)new JValue(DateTimeOffset.Now); }, "Can not convert Date to TimeSpan.");
 #endif
             ExceptionAssert.Throws<ArgumentException>(() => { var i = (TimeSpan)new JValue(new Uri("http://www.google.com")); }, "Can not convert Uri to TimeSpan.");
@@ -430,13 +430,13 @@ namespace Newtonsoft.Json.Tests.Linq
             ExceptionAssert.Throws<ArgumentException>(() => { var i = (Guid)new JValue(1.1m); }, "Can not convert Float to Guid.");
             ExceptionAssert.Throws<ArgumentException>(() => { var i = (Guid)JValue.CreateNull(); }, "Can not convert Null to Guid.");
             ExceptionAssert.Throws<ArgumentException>(() => { var i = (Guid)new JValue(DateTime.Now); }, "Can not convert Date to Guid.");
-#if !NET20
+#if !(NET20 || DOT42)
             ExceptionAssert.Throws<ArgumentException>(() => { var i = (Guid)new JValue(DateTimeOffset.Now); }, "Can not convert Date to Guid.");
 #endif
             ExceptionAssert.Throws<ArgumentException>(() => { var i = (Guid)new JValue(TimeSpan.FromMinutes(1)); }, "Can not convert TimeSpan to Guid.");
             ExceptionAssert.Throws<ArgumentException>(() => { var i = (Guid)new JValue(new Uri("http://www.google.com")); }, "Can not convert Uri to Guid.");
 
-#if !NET20
+#if !(NET20 || DOT42)
             ExceptionAssert.Throws<ArgumentException>(() => { var i = (DateTimeOffset)new JValue(true); }, "Can not convert Boolean to DateTimeOffset.");
 #endif
             ExceptionAssert.Throws<ArgumentException>(() => { var i = (Uri)new JValue(true); }, "Can not convert Boolean to Uri.");
@@ -458,7 +458,7 @@ namespace Newtonsoft.Json.Tests.Linq
         [Test]
         public void ToObject()
         {
-#if !(NET20 || NET35 || PORTABLE || DNXCORE50)
+#if !(NET20 || NET35 || PORTABLE || DNXCORE50 || DOT42)
             Assert.AreEqual((BigInteger)1, (new JValue(1).ToObject(typeof(BigInteger))));
             Assert.AreEqual((BigInteger)1, (new JValue(1).ToObject(typeof(BigInteger?))));
             Assert.AreEqual((BigInteger?)null, (JValue.CreateNull().ToObject(typeof(BigInteger?))));
@@ -493,7 +493,7 @@ namespace Newtonsoft.Json.Tests.Linq
             Assert.AreEqual(TimeSpan.MaxValue, (new JValue(TimeSpan.MaxValue).ToObject(typeof(TimeSpan?))));
             Assert.AreEqual(DateTime.MaxValue, (new JValue(DateTime.MaxValue).ToObject(typeof(DateTime))));
             Assert.AreEqual(DateTime.MaxValue, (new JValue(DateTime.MaxValue).ToObject(typeof(DateTime?))));
-#if !NET20
+#if !(NET20 || DOT42)
             Assert.AreEqual(DateTimeOffset.MaxValue, (new JValue(DateTimeOffset.MaxValue).ToObject(typeof(DateTimeOffset))));
             Assert.AreEqual(DateTimeOffset.MaxValue, (new JValue(DateTimeOffset.MaxValue).ToObject(typeof(DateTimeOffset?))));
 #endif
@@ -510,7 +510,7 @@ namespace Newtonsoft.Json.Tests.Linq
         public void ImplicitCastingTo()
         {
             Assert.IsTrue(JToken.DeepEquals(new JValue(new DateTime(2000, 12, 20)), (JValue)new DateTime(2000, 12, 20)));
-#if !NET20
+#if !(NET20 || DOT42)
             Assert.IsTrue(JToken.DeepEquals(new JValue(new DateTimeOffset(2000, 12, 20, 23, 50, 10, TimeSpan.Zero)), (JValue)new DateTimeOffset(2000, 12, 20, 23, 50, 10, TimeSpan.Zero)));
             Assert.IsTrue(JToken.DeepEquals(new JValue((DateTimeOffset?)null), (JValue)(DateTimeOffset?)null));
 #endif
@@ -545,8 +545,8 @@ namespace Newtonsoft.Json.Tests.Linq
             Assert.IsTrue(JToken.DeepEquals(new JValue(float.MinValue), (JValue)float.MinValue));
             Assert.IsTrue(JToken.DeepEquals(new JValue(double.MinValue), (JValue)double.MinValue));
             Assert.IsTrue(JToken.DeepEquals(new JValue(uint.MaxValue), (JValue)uint.MaxValue));
-            Assert.IsTrue(JToken.DeepEquals(new JValue(ulong.MaxValue), (JValue)ulong.MaxValue));
-            Assert.IsTrue(JToken.DeepEquals(new JValue(ulong.MinValue), (JValue)ulong.MinValue));
+            Assert.IsTrue(JToken.DeepEquals(new JValue(ulong.MaxValue, JTokenType.Integer), (JValue)ulong.MaxValue));
+            Assert.IsTrue(JToken.DeepEquals(new JValue(ulong.MinValue, JTokenType.Integer), (JValue)ulong.MinValue));
             Assert.IsTrue(JToken.DeepEquals(new JValue((string)null), (JValue)(string)null));
             Assert.IsTrue(JToken.DeepEquals(new JValue((DateTime?)null), (JValue)(DateTime?)null));
             Assert.IsTrue(JToken.DeepEquals(new JValue(decimal.MaxValue), (JValue)decimal.MaxValue));

@@ -90,7 +90,7 @@ namespace Newtonsoft.Json.Linq
             : this(value, JTokenType.String)
         {
         }
-
+#if!DOT42
         /// <summary>
         /// Initializes a new instance of the <see cref="JValue"/> class with the given value.
         /// </summary>
@@ -100,6 +100,7 @@ namespace Newtonsoft.Json.Linq
             : this(value, JTokenType.Integer)
         {
         }
+#endif
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JValue"/> class with the given value.
@@ -128,7 +129,7 @@ namespace Newtonsoft.Json.Linq
         {
         }
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
         /// <summary>
         /// Initializes a new instance of the <see cref="JValue"/> class with the given value.
         /// </summary>
@@ -285,14 +286,14 @@ namespace Newtonsoft.Json.Linq
 
                     return b1.CompareTo(b2);
                 case JTokenType.Date:
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
                     if (objA is DateTime)
                     {
 #endif
                         DateTime date1 = (DateTime)objA;
                         DateTime date2;
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
                         if (objB is DateTimeOffset)
                             date2 = ((DateTimeOffset)objB).DateTime;
                         else
@@ -300,7 +301,7 @@ namespace Newtonsoft.Json.Linq
                             date2 = Convert.ToDateTime(objB, CultureInfo.InvariantCulture);
 
                         return date1.CompareTo(date2);
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
                     }
                     else
                     {
@@ -582,7 +583,7 @@ namespace Newtonsoft.Json.Linq
                 return JTokenType.Float;
             else if (value is DateTime)
                 return JTokenType.Date;
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
             else if (value is DateTimeOffset)
                 return JTokenType.Date;
 #endif
@@ -700,7 +701,7 @@ namespace Newtonsoft.Json.Linq
                     writer.WriteValue(Convert.ToBoolean(_value, CultureInfo.InvariantCulture));
                     return;
                 case JTokenType.Date:
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
                     if (_value is DateTimeOffset)
                         writer.WriteValue((DateTimeOffset)_value);
                     else
@@ -965,7 +966,7 @@ namespace Newtonsoft.Json.Linq
             if (_value == null)
                 return TypeCode.Empty;
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
             if (_value is DateTimeOffset)
                 return TypeCode.DateTime;
 #endif

@@ -28,10 +28,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 
+#if DOT42
+using Dot42;
+#endif
+
 namespace Newtonsoft.Json.Tests.TestObjects
 {
     [JsonObject(Id = "Person", Title = "Title!", Description = "JsonObjectAttribute description!", MemberSerialization = MemberSerialization.OptIn)]
-#if !(NETFX_CORE || DNXCORE50)
+#if !(NETFX_CORE || DNXCORE50 || DOT42)
     [Description("DescriptionAttribute description!")]
 #endif
     public class Person

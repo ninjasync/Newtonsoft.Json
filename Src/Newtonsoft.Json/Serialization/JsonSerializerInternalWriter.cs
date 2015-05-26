@@ -107,8 +107,11 @@ namespace Newtonsoft.Json.Serialization
         {
             if (value == null)
                 return null;
-
+#if !DOT42
             return Serializer._contractResolver.ResolveContract(value.GetType());
+#else
+            return Serializer._contractResolver.ResolveContract(value.GetTypeReflectionSafe());
+#endif
         }
 
         private void SerializePrimitive(JsonWriter writer, object value, JsonPrimitiveContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerProperty)
@@ -162,10 +165,12 @@ namespace Newtonsoft.Json.Serialization
                     break;
                 case JsonContractType.Array:
                     JsonArrayContract arrayContract = (JsonArrayContract)valueContract;
-                    if (!arrayContract.IsMultidimensionalArray)
-                        SerializeList(writer, (IEnumerable)value, arrayContract, member, containerContract, containerProperty);
+#if !DONT_HAVE_MULTIDIMARRAYS
+                    if (arrayContract.IsMultidimensionalArray)
+                        SerializeMultidimensionalArray(writer, (Array) value, arrayContract, member, containerContract, containerProperty);
                     else
-                        SerializeMultidimensionalArray(writer, (Array)value, arrayContract, member, containerContract, containerProperty);
+#endif
+                        SerializeList(writer, (IEnumerable) value, arrayContract, member, containerContract, containerProperty);
                     break;
                 case JsonContractType.Primitive:
                     SerializePrimitive(writer, value, (JsonPrimitiveContract)valueContract, member, containerContract, containerProperty);
@@ -628,6 +633,7 @@ namespace Newtonsoft.Json.Serialization
             OnSerialized(writer, contract, underlyingList);
         }
 
+#if !DONT_HAVE_MULTIDIMARRAYS
         private void SerializeMultidimensionalArray(JsonWriter writer, Array values, JsonArrayContract contract, JsonProperty member, JsonContainerContract collectionContract, JsonProperty containerProperty)
         {
             OnSerializing(writer, contract, values);
@@ -699,6 +705,7 @@ namespace Newtonsoft.Json.Serialization
             writer.WriteEndArray();
         }
 
+#endif
         private bool WriteStartArray(JsonWriter writer, object values, JsonArrayContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerProperty)
         {
             bool isReference = ResolveIsReference(contract, member, containerContract, containerProperty) ?? HasFlag(Serializer._preserveReferencesHandling, PreserveReferencesHandling.Arrays);
@@ -975,7 +982,7 @@ namespace Newtonsoft.Json.Serialization
                     DateTimeUtils.WriteDateTimeString(sw, (DateTime)name, writer.DateFormatHandling, writer.DateFormatString, writer.Culture);
                     return sw.ToString();
                 }
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
                 else if (primitiveContract.TypeCode == PrimitiveTypeCode.DateTimeOffset || primitiveContract.TypeCode == PrimitiveTypeCode.DateTimeOffsetNullable)
                 {
                     escape = false;

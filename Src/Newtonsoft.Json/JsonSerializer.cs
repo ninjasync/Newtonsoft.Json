@@ -35,6 +35,10 @@ using Newtonsoft.Json.Utilities;
 using System.Runtime.Serialization;
 using ErrorEventArgs = Newtonsoft.Json.Serialization.ErrorEventArgs;
 
+#if DOT42
+using Dot42;
+#endif
+
 namespace Newtonsoft.Json
 {
     /// <summary>
@@ -672,7 +676,7 @@ namespace Newtonsoft.Json
         /// <param name="reader">The <see cref="JsonReader"/> containing the object.</param>
         /// <typeparam name="T">The type of the object to deserialize.</typeparam>
         /// <returns>The instance of <typeparamref name="T"/> being deserialized.</returns>
-        public T Deserialize<T>(JsonReader reader)
+        public T Deserialize<[SerializedParameter] T>(JsonReader reader)
         {
             return (T)Deserialize(reader, typeof(T));
         }
@@ -858,7 +862,7 @@ namespace Newtonsoft.Json
         /// </summary>
         /// <param name="jsonWriter">The <see cref="JsonWriter"/> used to write the JSON structure.</param>
         /// <param name="value">The <see cref="Object"/> to serialize.</param>
-        public void Serialize(JsonWriter jsonWriter, object value)
+        public void Serialize(JsonWriter jsonWriter, [SerializedParameter] object value)
         {
             SerializeInternal(jsonWriter, value, null);
         }

@@ -110,41 +110,28 @@ namespace Newtonsoft.Json.Utilities
             new Dictionary<Type, PrimitiveTypeCode>
             {
                 { typeof(char), PrimitiveTypeCode.Char },
-                { typeof(char?), PrimitiveTypeCode.CharNullable },
                 { typeof(bool), PrimitiveTypeCode.Boolean },
-                { typeof(bool?), PrimitiveTypeCode.BooleanNullable },
-                { typeof(sbyte), PrimitiveTypeCode.SByte },
-                { typeof(sbyte?), PrimitiveTypeCode.SByteNullable },
-                { typeof(short), PrimitiveTypeCode.Int16 },
-                { typeof(short?), PrimitiveTypeCode.Int16Nullable },
-                { typeof(ushort), PrimitiveTypeCode.UInt16 },
-                { typeof(ushort?), PrimitiveTypeCode.UInt16Nullable },
-                { typeof(int), PrimitiveTypeCode.Int32 },
-                { typeof(int?), PrimitiveTypeCode.Int32Nullable },
                 { typeof(byte), PrimitiveTypeCode.Byte },
-                { typeof(byte?), PrimitiveTypeCode.ByteNullable },
-                { typeof(uint), PrimitiveTypeCode.UInt32 },
-                { typeof(uint?), PrimitiveTypeCode.UInt32Nullable },
+                { typeof(short), PrimitiveTypeCode.Int16 },
+                { typeof(int), PrimitiveTypeCode.Int32 },
                 { typeof(long), PrimitiveTypeCode.Int64 },
-                { typeof(long?), PrimitiveTypeCode.Int64Nullable },
+#if !DOT42 // java doesn't have unsigned types
+                { typeof(sbyte), PrimitiveTypeCode.SByte },
+                { typeof(ushort), PrimitiveTypeCode.UInt16 },
+                { typeof(uint), PrimitiveTypeCode.UInt32 },
                 { typeof(ulong), PrimitiveTypeCode.UInt64 },
-                { typeof(ulong?), PrimitiveTypeCode.UInt64Nullable },
+#endif
+                
                 { typeof(float), PrimitiveTypeCode.Single },
-                { typeof(float?), PrimitiveTypeCode.SingleNullable },
                 { typeof(double), PrimitiveTypeCode.Double },
-                { typeof(double?), PrimitiveTypeCode.DoubleNullable },
                 { typeof(DateTime), PrimitiveTypeCode.DateTime },
-                { typeof(DateTime?), PrimitiveTypeCode.DateTimeNullable },
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
                 { typeof(DateTimeOffset), PrimitiveTypeCode.DateTimeOffset },
                 { typeof(DateTimeOffset?), PrimitiveTypeCode.DateTimeOffsetNullable },
 #endif
                 { typeof(decimal), PrimitiveTypeCode.Decimal },
-                { typeof(decimal?), PrimitiveTypeCode.DecimalNullable },
                 { typeof(Guid), PrimitiveTypeCode.Guid },
-                { typeof(Guid?), PrimitiveTypeCode.GuidNullable },
                 { typeof(TimeSpan), PrimitiveTypeCode.TimeSpan },
-                { typeof(TimeSpan?), PrimitiveTypeCode.TimeSpanNullable },
 #if !(PORTABLE || PORTABLE40 || NET35 || NET20)
                 { typeof(BigInteger), PrimitiveTypeCode.BigInteger },
                 { typeof(BigInteger?), PrimitiveTypeCode.BigIntegerNullable },
@@ -153,7 +140,26 @@ namespace Newtonsoft.Json.Utilities
                 { typeof(string), PrimitiveTypeCode.String },
                 { typeof(byte[]), PrimitiveTypeCode.Bytes },
 #if !(PORTABLE || PORTABLE40 || NETFX_CORE)
-                { typeof(DBNull), PrimitiveTypeCode.DBNull }
+                { typeof(DBNull), PrimitiveTypeCode.DBNull },
+#endif
+
+                { typeof(char?), PrimitiveTypeCode.CharNullable },
+                { typeof(bool?), PrimitiveTypeCode.BooleanNullable },
+                { typeof(short?), PrimitiveTypeCode.Int16Nullable },
+                { typeof(int?), PrimitiveTypeCode.Int32Nullable },
+                { typeof(byte?), PrimitiveTypeCode.ByteNullable },
+                { typeof(long?), PrimitiveTypeCode.Int64Nullable },
+                { typeof(float?), PrimitiveTypeCode.SingleNullable },
+                { typeof(double?), PrimitiveTypeCode.DoubleNullable },
+                { typeof(DateTime?), PrimitiveTypeCode.DateTimeNullable },
+                { typeof(decimal?), PrimitiveTypeCode.DecimalNullable },
+                { typeof(Guid?), PrimitiveTypeCode.GuidNullable },
+                { typeof(TimeSpan?), PrimitiveTypeCode.TimeSpanNullable },
+#if !DOT42
+                { typeof(sbyte?), PrimitiveTypeCode.SByteNullable },
+                { typeof(ushort?), PrimitiveTypeCode.UInt16Nullable },
+                { typeof(ulong?), PrimitiveTypeCode.UInt64Nullable },
+                { typeof(uint?), PrimitiveTypeCode.UInt32Nullable },
 #endif
             };
 
@@ -229,7 +235,7 @@ namespace Newtonsoft.Json.Utilities
 
         public static bool IsConvertible(Type t)
         {
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || PORTABLE || DOT42)
             return typeof(IConvertible).IsAssignableFrom(t);
 #else
       return (
@@ -240,7 +246,7 @@ namespace Newtonsoft.Json.Utilities
 
         public static TimeSpan ParseTimeSpan(string input)
         {
-#if !(NET35 || NET20)
+#if !(NET35 || NET20 || DOT42)
             return TimeSpan.Parse(input, CultureInfo.InvariantCulture);
 #else
             return TimeSpan.Parse(input);
@@ -434,7 +440,7 @@ namespace Newtonsoft.Json.Utilities
                 return ConvertResult.Success;
             }
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
             if (initialValue is DateTime && targetType == typeof(DateTimeOffset))
             {
                 value = new DateTimeOffset((DateTime)initialValue);

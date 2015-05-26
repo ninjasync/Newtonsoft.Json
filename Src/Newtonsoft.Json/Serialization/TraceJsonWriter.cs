@@ -86,7 +86,7 @@ namespace Newtonsoft.Json.Serialization
             base.WriteValue(value);
         }
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
         public override void WriteValue(DateTimeOffset value)
         {
             _textWriter.WriteValue(value);

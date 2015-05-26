@@ -43,7 +43,7 @@ namespace Newtonsoft.Json.Tests.Serialization
     [TestFixture]
     public class NullValueHandlingTests : TestFixtureBase
     {
-#if !NET20
+#if !(NET20 || DOT42)
         [Test]
         public void DeserializeNullIntoDateTime()
         {

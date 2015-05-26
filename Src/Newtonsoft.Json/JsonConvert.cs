@@ -38,8 +38,13 @@ using System.Xml;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using System.Text;
+
 #if !(NET20 || PORTABLE40)
 using System.Xml.Linq;
+#endif
+
+#if DOT42
+using Dot42;
 #endif
 
 namespace Newtonsoft.Json
@@ -126,7 +131,7 @@ namespace Newtonsoft.Json
             }
         }
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
         /// <summary>
         /// Converts the <see cref="DateTimeOffset"/> to its JSON string representation.
         /// </summary>
@@ -485,7 +490,7 @@ namespace Newtonsoft.Json
                 case PrimitiveTypeCode.DBNull:
                     return Null;
 #endif
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
                 case PrimitiveTypeCode.DateTimeOffset:
                     return ToString((DateTimeOffset)value);
 #endif
@@ -510,7 +515,7 @@ namespace Newtonsoft.Json
         /// </summary>
         /// <param name="value">The object to serialize.</param>
         /// <returns>A JSON string representation of the object.</returns>
-        public static string SerializeObject(object value)
+        public static string SerializeObject([SerializedParameter] object value)
         {
             return SerializeObject(value, null, (JsonSerializerSettings)null);
         }
@@ -523,7 +528,7 @@ namespace Newtonsoft.Json
         /// <returns>
         /// A JSON string representation of the object.
         /// </returns>
-        public static string SerializeObject(object value, Formatting formatting)
+        public static string SerializeObject([SerializedParameter] object value, Formatting formatting)
         {
             return SerializeObject(value, formatting, (JsonSerializerSettings)null);
         }
@@ -534,7 +539,7 @@ namespace Newtonsoft.Json
         /// <param name="value">The object to serialize.</param>
         /// <param name="converters">A collection converters used while serializing.</param>
         /// <returns>A JSON string representation of the object.</returns>
-        public static string SerializeObject(object value, params JsonConverter[] converters)
+        public static string SerializeObject([SerializedParameter] object value, params JsonConverter[] converters)
         {
             JsonSerializerSettings settings = (converters != null && converters.Length > 0)
                 ? new JsonSerializerSettings { Converters = converters }
@@ -550,7 +555,7 @@ namespace Newtonsoft.Json
         /// <param name="formatting">Indicates how the output is formatted.</param>
         /// <param name="converters">A collection converters used while serializing.</param>
         /// <returns>A JSON string representation of the object.</returns>
-        public static string SerializeObject(object value, Formatting formatting, params JsonConverter[] converters)
+        public static string SerializeObject([SerializedParameter] object value, Formatting formatting, params JsonConverter[] converters)
         {
             JsonSerializerSettings settings = (converters != null && converters.Length > 0)
                 ? new JsonSerializerSettings { Converters = converters }
@@ -568,7 +573,7 @@ namespace Newtonsoft.Json
         /// <returns>
         /// A JSON string representation of the object.
         /// </returns>
-        public static string SerializeObject(object value, JsonSerializerSettings settings)
+        public static string SerializeObject([SerializedParameter] object value, JsonSerializerSettings settings)
         {
             return SerializeObject(value, null, settings);
         }
@@ -587,7 +592,7 @@ namespace Newtonsoft.Json
         /// <returns>
         /// A JSON string representation of the object.
         /// </returns>
-        public static string SerializeObject(object value, Type type, JsonSerializerSettings settings)
+        public static string SerializeObject([SerializedParameter] object value, [SerializedParameter] Type type, JsonSerializerSettings settings)
         {
             JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(settings);
 
@@ -604,7 +609,7 @@ namespace Newtonsoft.Json
         /// <returns>
         /// A JSON string representation of the object.
         /// </returns>
-        public static string SerializeObject(object value, Formatting formatting, JsonSerializerSettings settings)
+        public static string SerializeObject([SerializedParameter] object value, Formatting formatting, JsonSerializerSettings settings)
         {
             return SerializeObject(value, null, formatting, settings);
         }
@@ -624,7 +629,7 @@ namespace Newtonsoft.Json
         /// <returns>
         /// A JSON string representation of the object.
         /// </returns>
-        public static string SerializeObject(object value, Type type, Formatting formatting, JsonSerializerSettings settings)
+        public static string SerializeObject([SerializedParameter] object value, [SerializedParameter] Type type, Formatting formatting, JsonSerializerSettings settings)
         {
             JsonSerializer jsonSerializer = JsonSerializer.CreateDefault(settings);
             jsonSerializer.Formatting = formatting;
@@ -632,7 +637,7 @@ namespace Newtonsoft.Json
             return SerializeObjectInternal(value, type, jsonSerializer);
         }
 
-        private static string SerializeObjectInternal(object value, Type type, JsonSerializer jsonSerializer)
+        private static string SerializeObjectInternal([SerializedParameter] object value, [SerializedParameter] Type type, JsonSerializer jsonSerializer)
         {
             StringBuilder sb = new StringBuilder(256);
             StringWriter sw = new StringWriter(sb, CultureInfo.InvariantCulture);
@@ -737,7 +742,7 @@ namespace Newtonsoft.Json
         /// <typeparam name="T">The type of the object to deserialize to.</typeparam>
         /// <param name="value">The JSON to deserialize.</param>
         /// <returns>The deserialized object from the JSON string.</returns>
-        public static T DeserializeObject<T>(string value)
+        public static T DeserializeObject<[SerializedParameter] T>(string value)
         {
             return DeserializeObject<T>(value, (JsonSerializerSettings)null);
         }
@@ -753,7 +758,7 @@ namespace Newtonsoft.Json
         /// <param name="value">The JSON to deserialize.</param>
         /// <param name="anonymousTypeObject">The anonymous type object.</param>
         /// <returns>The deserialized anonymous type from the JSON string.</returns>
-        public static T DeserializeAnonymousType<T>(string value, T anonymousTypeObject)
+        public static T DeserializeAnonymousType<[SerializedParameter] T>(string value, T anonymousTypeObject)
         {
             return DeserializeObject<T>(value);
         }
@@ -773,7 +778,7 @@ namespace Newtonsoft.Json
         /// If this is null, default serialization settings will be used.
         /// </param>
         /// <returns>The deserialized anonymous type from the JSON string.</returns>
-        public static T DeserializeAnonymousType<T>(string value, T anonymousTypeObject, JsonSerializerSettings settings)
+        public static T DeserializeAnonymousType<[SerializedParameter] T>(string value, T anonymousTypeObject, JsonSerializerSettings settings)
         {
             return DeserializeObject<T>(value, settings);
         }
@@ -785,7 +790,7 @@ namespace Newtonsoft.Json
         /// <param name="value">The JSON to deserialize.</param>
         /// <param name="converters">Converters to use while deserializing.</param>
         /// <returns>The deserialized object from the JSON string.</returns>
-        public static T DeserializeObject<T>(string value, params JsonConverter[] converters)
+        public static T DeserializeObject<[SerializedParameter] T>(string value, params JsonConverter[] converters)
         {
             return (T)DeserializeObject(value, typeof(T), converters);
         }
@@ -800,7 +805,7 @@ namespace Newtonsoft.Json
         /// If this is null, default serialization settings will be used.
         /// </param>
         /// <returns>The deserialized object from the JSON string.</returns>
-        public static T DeserializeObject<T>(string value, JsonSerializerSettings settings)
+        public static T DeserializeObject<[SerializedParameter] T>(string value, JsonSerializerSettings settings)
         {
             return (T)DeserializeObject(value, typeof(T), settings);
         }

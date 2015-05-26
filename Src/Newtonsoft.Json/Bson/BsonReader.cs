@@ -221,7 +221,7 @@ namespace Newtonsoft.Json.Bson
             return ReadAsDateTimeInternal();
         }
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
         /// <summary>
         /// Reads the next JSON token from the stream as a <see cref="Nullable{DateTimeOffset}"/>.
         /// </summary>
@@ -297,7 +297,7 @@ namespace Newtonsoft.Json.Bson
             base.Close();
 
             if (CloseInput && _reader != null)
-#if !(NETFX_CORE || PORTABLE40 || PORTABLE)
+#if !(NETFX_CORE || PORTABLE40 || PORTABLE) || DOT42
                 _reader.Close();
 #else
                 _reader.Dispose();

@@ -273,7 +273,7 @@ namespace Newtonsoft.Json.Tests.Serialization
 }", json);
         }
 
-#if !(NETFX_CORE || PORTABLE || DNXCORE50)
+#if !(NETFX_CORE || PORTABLE || DNXCORE50 || DOT42)
         public class SerializationEventContextTestObject
         {
             public string TestMember { get; set; }
@@ -304,7 +304,7 @@ namespace Newtonsoft.Json.Tests.Serialization
         }
 #endif
 
-#if !(PORTABLE || DNXCORE50)
+#if !(PORTABLE || DNXCORE50 || DOT42)
         public void WhenSerializationErrorDetectedBySerializer_ThenCallbackIsCalled()
         {
             // Verify contract is properly finding our callback
@@ -388,7 +388,7 @@ OnSerialized_Derived
 OnSerialized_Derived_Derived", string.Join(Environment.NewLine, e.ToArray()));
         }
 
-#if !(NET20)
+#if !(NET20 || DOT42)
         [Test]
         public void DerivedDerivedSerializationEvents_DataContractSerializer()
         {

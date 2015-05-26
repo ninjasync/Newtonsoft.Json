@@ -395,7 +395,7 @@ namespace Newtonsoft.Json
         /// <returns>A <see cref="String"/>. This method will return <c>null</c> at the end of an array.</returns>
         public abstract DateTime? ReadAsDateTime();
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
         /// <summary>
         /// Reads the next JSON token from the stream as a <see cref="Nullable{DateTimeOffset}"/>.
         /// </summary>
@@ -408,7 +408,7 @@ namespace Newtonsoft.Json
             throw new NotImplementedException();
         }
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
         internal DateTimeOffset? ReadAsDateTimeOffsetInternal()
         {
             _readType = ReadType.ReadAsDateTimeOffset;

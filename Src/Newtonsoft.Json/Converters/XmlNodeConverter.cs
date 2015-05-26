@@ -1442,7 +1442,7 @@ namespace Newtonsoft.Json.Converters
             }
             else if (reader.TokenType == JsonToken.Date)
             {
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
                 if (reader.Value is DateTimeOffset)
                     return XmlConvert.ToString((DateTimeOffset)reader.Value);
 #endif

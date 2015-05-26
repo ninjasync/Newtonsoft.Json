@@ -32,6 +32,7 @@ using System.Linq;
 #endif
 using Newtonsoft.Json.Utilities;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Newtonsoft.Json.Linq
 {
@@ -39,11 +40,13 @@ namespace Newtonsoft.Json.Linq
     /// Represents a collection of <see cref="JToken"/> objects.
     /// </summary>
     /// <typeparam name="T">The type of token</typeparam>
+    [SuppressMessage("dot42", "StaticConstructorUsesGenericParameter")] 
     public struct JEnumerable<T> : IJEnumerable<T>, IEquatable<JEnumerable<T>> where T : JToken
     {
         /// <summary>
         /// An empty collection of <see cref="JToken"/> objects.
         /// </summary>
+        [SuppressMessage("dot42", "StaticFieldInGenericType")]
         public static readonly JEnumerable<T> Empty = new JEnumerable<T>(Enumerable.Empty<T>());
 
         private readonly IEnumerable<T> _enumerable;

@@ -71,7 +71,7 @@ namespace Newtonsoft.Json.Serialization
             return value;
         }
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
         public override DateTimeOffset? ReadAsDateTimeOffset()
         {
             var value = _innerReader.ReadAsDateTimeOffset();

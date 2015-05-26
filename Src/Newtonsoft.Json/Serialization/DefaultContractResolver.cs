@@ -45,11 +45,11 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Utilities;
 using Newtonsoft.Json.Linq;
 using System.Runtime.CompilerServices;
+
 #if NET20
 using Newtonsoft.Json.Utilities.LinqBridge;
 #else
 using System.Linq;
-
 #endif
 
 namespace Newtonsoft.Json.Serialization
@@ -123,7 +123,7 @@ namespace Newtonsoft.Json.Serialization
 #if NETFX_CORE
             new JsonValueConverter(),
 #endif
-#if !(NET35 || NET20 || NETFX_CORE)
+#if !(NET35 || NET20 || NETFX_CORE || DOT42)
             new DiscriminatedUnionConverter(),
 #endif
             new KeyValuePairConverter(),
@@ -532,8 +532,12 @@ namespace Newtonsoft.Json.Serialization
             if (extensionDataAttribute.WriteData)
                 contract.ExtensionDataGetter = extensionDataGetter;
         }
-
+#if !DOT42
         internal struct DictionaryEnumerator<TEnumeratorKey, TEnumeratorValue> : IEnumerable<KeyValuePair<object, object>>, IEnumerator<KeyValuePair<object, object>>
+#else
+        [Dot42.Include(TypeCondition = typeof(JsonExtensionDataAttribute), ApplyToMembers = true)]
+        internal class DictionaryEnumerator<TEnumeratorKey, TEnumeratorValue> : IEnumerable<KeyValuePair<object, object>>, IEnumerator<KeyValuePair<object, object>>
+#endif
         {
             private readonly IEnumerator<KeyValuePair<TEnumeratorKey, TEnumeratorValue>> _e;
 
@@ -708,7 +712,7 @@ namespace Newtonsoft.Json.Serialization
             {
                 contract.IsReference = containerAttribute._isReference;
             }
-#if !NET20
+#if !NET20 
             else
             {
                 DataContractAttribute dataContractAttribute = JsonTypeReflector.GetDataContractAttribute(contract.NonNullableUnderlyingType);
@@ -832,7 +836,7 @@ namespace Newtonsoft.Json.Serialization
             if (t.IsGenericType() && t.GetGenericTypeDefinition() == typeof(ConcurrentDictionary<,>))
                 return true;
 #endif
-#if !(NET35 || NET20 || NETFX_CORE)
+#if !(NET35 || NET20 || NETFX_CORE || DOT42)
             if (t.Name == FSharpUtils.FSharpSetTypeName || t.Name == FSharpUtils.FSharpMapTypeName)
                 return true;
 #endif
@@ -842,7 +846,7 @@ namespace Newtonsoft.Json.Serialization
 
         private static bool ShouldSkipSerializing(Type t)
         {
-#if !(NET35 || NET20 || NETFX_CORE)
+#if !(NET35 || NET20 || NETFX_CORE || DOT42)
             if (t.Name == FSharpUtils.FSharpSetTypeName || t.Name == FSharpUtils.FSharpMapTypeName)
                 return true;
 #endif

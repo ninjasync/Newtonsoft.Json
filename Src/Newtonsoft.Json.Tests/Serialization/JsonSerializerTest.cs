@@ -29,10 +29,10 @@ using System.ComponentModel;
 using System.Collections.Concurrent;
 #endif
 using System.Collections.Generic;
-#if !(NET20 || NET35 || PORTABLE || DNXCORE50)
+#if !(NET20 || NET35 || PORTABLE || DNXCORE50 || DOT42)
 using System.Numerics;
 #endif
-#if !(NET20 || NETFX_CORE || DNXCORE50)
+#if !(NET20 || NETFX_CORE || DNXCORE50 || DOT42)
 using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Runtime.CompilerServices;
@@ -62,7 +62,7 @@ using System.Collections.ObjectModel;
 using Newtonsoft.Json.Bson;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Converters;
-#if !NET20
+#if !NET20 && !DOT42
 using System.Runtime.Serialization.Json;
 #endif
 using Newtonsoft.Json.Serialization;
@@ -72,12 +72,12 @@ using System.Runtime.Serialization;
 using System.Globalization;
 using Newtonsoft.Json.Utilities;
 using System.Reflection;
-#if !NET20
+#if !NET20 && !DOT42
 using System.Xml.Linq;
 using System.Collections.Specialized;
 using System.Linq.Expressions;
 #endif
-#if !(NET35 || NET20)
+#if !(NET35 || NET20 || DOT42)
 using System.Dynamic;
 #endif
 #if NET20
@@ -85,7 +85,7 @@ using Newtonsoft.Json.Utilities.LinqBridge;
 #else
 using System.Linq;
 #endif
-#if !(NETFX_CORE || DNXCORE50)
+#if !(NETFX_CORE || DNXCORE50 || DOT42)
 using System.Drawing;
 using System.Diagnostics;
 #endif
@@ -343,7 +343,7 @@ namespace Newtonsoft.Json.Tests.Serialization
             Assert.AreEqual("Name!", c2.Name);
         }
 
-#if !(NETFX_CORE || DNXCORE50 || NET20)
+#if !(NETFX_CORE || DNXCORE50 || NET20 || DOT42)
         [MetadataType(typeof(CustomerValidation))]
         public partial class CustomerWithMetadataType
         {
@@ -530,7 +530,7 @@ namespace Newtonsoft.Json.Tests.Serialization
         }
 #endif
 
-#if !(NET20 || NET35)
+#if !(NET20 || NET35 || DOT42)
         [Test]
         public void DeserializeObservableCollection()
         {
@@ -541,7 +541,7 @@ namespace Newtonsoft.Json.Tests.Serialization
         }
 #endif
 
-#if !NET20
+#if !(NET20 || DOT42)
         [Test]
         public void PopulateResetSettings()
         {
@@ -768,7 +768,7 @@ namespace Newtonsoft.Json.Tests.Serialization
             serializer.ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor;
             Assert.AreEqual(ConstructorHandling.AllowNonPublicDefaultConstructor, serializer.ConstructorHandling);
 
-#if !(NETFX_CORE || DNXCORE50)
+#if !(NETFX_CORE || DNXCORE50 || DOT42)
             serializer.Context = new StreamingContext(StreamingContextStates.Other);
             Assert.AreEqual(new StreamingContext(StreamingContextStates.Other), serializer.Context);
 #endif
@@ -860,7 +860,7 @@ namespace Newtonsoft.Json.Tests.Serialization
             settings.ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor;
             Assert.AreEqual(ConstructorHandling.AllowNonPublicDefaultConstructor, settings.ConstructorHandling);
 
-#if !(NETFX_CORE || DNXCORE50)
+#if !(NETFX_CORE || DNXCORE50 || DOT42)
             settings.Context = new StreamingContext(StreamingContextStates.Other);
             Assert.AreEqual(new StreamingContext(StreamingContextStates.Other), settings.Context);
 #endif
@@ -958,7 +958,7 @@ namespace Newtonsoft.Json.Tests.Serialization
             serializerProxy.ConstructorHandling = ConstructorHandling.AllowNonPublicDefaultConstructor;
             Assert.AreEqual(ConstructorHandling.AllowNonPublicDefaultConstructor, serializerProxy.ConstructorHandling);
 
-#if !(NETFX_CORE || DNXCORE50)
+#if !(NETFX_CORE || DNXCORE50 || DOT42)
             serializerProxy.Context = new StreamingContext(StreamingContextStates.Other);
             Assert.AreEqual(new StreamingContext(StreamingContextStates.Other), serializerProxy.Context);
 #endif
@@ -1293,7 +1293,7 @@ namespace Newtonsoft.Json.Tests.Serialization
             Assert.AreEqual("value", deserialized.foo.bar);
         }
 
-#if !(NETFX_CORE || DNXCORE50)
+#if !(NETFX_CORE || DNXCORE50 || DOT42)
         [Test]
         public void ConversionOperator()
         {
@@ -1458,7 +1458,7 @@ namespace Newtonsoft.Json.Tests.Serialization
             public virtual string VirtualWithDataMember { get; set; }
         }
 #pragma warning restore 108,114
-
+#if !DOT42
         [Test]
         public void SubWithoutContractNewPropertiesTest()
         {
@@ -1486,7 +1486,7 @@ namespace Newtonsoft.Json.Tests.Serialization
   ""WithDataMemberSub"": ""WithDataMember!""
 }", json);
         }
-
+#endif
         [Test]
         public void SubWithoutContractVirtualPropertiesTest()
         {
@@ -1512,6 +1512,8 @@ namespace Newtonsoft.Json.Tests.Serialization
   ""JustAProperty"": ""JustAProperty2!""
 }", json);
         }
+
+#if !DOT42
 
         [Test]
         public void SubWithContractNewPropertiesTest()
@@ -1542,7 +1544,6 @@ namespace Newtonsoft.Json.Tests.Serialization
   ""WithDataMemberSub"": ""WithDataMember!""
 }", json);
         }
-
         [Test]
         public void SubWithContractVirtualPropertiesTest()
         {
@@ -1595,6 +1596,7 @@ namespace Newtonsoft.Json.Tests.Serialization
 
             return jsonNetJson.ToString();
         }
+#endif
 #endif
 
         [Test]
@@ -1683,7 +1685,7 @@ namespace Newtonsoft.Json.Tests.Serialization
 
             string jsonText = JsonConvert.SerializeObject(testDictionary);
 
-#if !NET20
+#if !(NET20 || DOT42)
             MemoryStream ms = new MemoryStream();
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Dictionary<string, object>));
             serializer.WriteObject(ms, testDictionary);
@@ -1907,7 +1909,7 @@ keyword such as type of business.""
             ExceptionAssert.Throws<JsonSerializationException>(() => { JsonConvert.SerializeObject(new BadJsonPropertyClass()); }, @"A member with the name 'pie' already exists on 'Newtonsoft.Json.Tests.TestObjects.BadJsonPropertyClass'. Use the JsonPropertyAttribute to specify another name.");
         }
 
-#if !NET20
+#if !(NET20 || DOT42)
         [Test]
         public void Unicode()
         {
@@ -2158,7 +2160,7 @@ keyword such as type of business.""
             string json = JsonConvert.SerializeObject(new ConverableMembers(), Formatting.Indented);
 
             string expected = null;
-#if !(NETFX_CORE || PORTABLE || DNXCORE50)
+#if !(NETFX_CORE || PORTABLE || DNXCORE50 || DOT42)
             expected = @"{
   ""String"": ""string"",
   ""Int32"": 2147483647,
@@ -2198,7 +2200,7 @@ keyword such as type of business.""
             ConverableMembers c = JsonConvert.DeserializeObject<ConverableMembers>(json);
             Assert.AreEqual("string", c.String);
             Assert.AreEqual(double.MaxValue, c.Double);
-#if !(NETFX_CORE || PORTABLE || DNXCORE50 || PORTABLE40)
+#if !(NETFX_CORE || PORTABLE || DNXCORE50 || PORTABLE40 || DOT42)
             Assert.AreEqual(DBNull.Value, c.DBNull);
 #endif
         }
@@ -3043,7 +3045,7 @@ keyword such as type of business.""
             Assert.AreEqual("titleId", n.FidOrder[n.FidOrder.Count - 1]);
         }
 
-#if !(NET20 || NETFX_CORE || DNXCORE50)
+#if !(NET20 || NETFX_CORE || DNXCORE50 || DOT42)
         [MetadataType(typeof(OptInClassMetadata))]
         public class OptInClass
         {
@@ -3355,7 +3357,7 @@ keyword such as type of business.""
             Assert.AreEqual("value2", values["key2"]);
         }
 
-#if !NET20
+#if !(NET20 || DOT42)
         [Test]
         public void DeserializeEmptyStringToNullableDateTime()
         {
@@ -4192,7 +4194,7 @@ Path '', line 1, position 1.");
             public string Ethnicity { get; set; }
         }
 
-#if !NET20
+#if !(NET20 || DOT42)
         public class DataContractJsonSerializerTestClass
         {
             public TimeSpan TimeSpanProperty { get; set; }
@@ -4844,7 +4846,7 @@ Path '', line 1, position 1.");
             }
         }
 
-#if !NET20
+#if !(NET20 || DOT42)
         public class XNodeTestObject
         {
             public XDocument Document { get; set; }
@@ -4852,7 +4854,7 @@ Path '', line 1, position 1.");
         }
 #endif
 
-#if !NETFX_CORE
+#if !(NETFX_CORE || DOT42)
         public class XmlNodeTestObject
         {
             public XmlDocument Document { get; set; }
@@ -5212,7 +5214,7 @@ Path '', line 1, position 1.");
             Assert.AreEqual(0, z[1].Prop1.Length);
         }
 
-#if !(NET20 || NETFX_CORE || DNXCORE50)
+#if !(NET20 || NETFX_CORE || DNXCORE50 || DOT42)
         public class StringDictionaryTestClass
         {
             public StringDictionary StringDictionaryProperty { get; set; }
@@ -5280,12 +5282,13 @@ Path '', line 1, position 1.");
             Assert.AreEqual(int.MaxValue, newStruct.MyInt);
         }
 
+
+#if !(NET20 || DOT42)
         public class TimeZoneOffsetObject
         {
             public DateTimeOffset Offset { get; set; }
         }
 
-#if !NET20
         [Test]
         public void ReadWriteTimeZoneOffsetIso()
         {
@@ -5539,7 +5542,7 @@ Path '', line 1, position 1.");
             Assert.AreEqual(meh.IDontWork, "meh");
         }
 
-#if !(NET20 || NETFX_CORE || DNXCORE50)
+#if !(NET20 || NETFX_CORE || DNXCORE50 || DOT42)
         [DataContract]
         public struct StructISerializable : ISerializable
         {
@@ -5892,7 +5895,7 @@ Path '', line 1, position 1.");
   ""nonVirtualMember"": ""NonVirtualMember!""
 }", result);
         }
-
+#if !DOT42
         [Test]
         public void ChildDataContractTestWithDataContractSerializer()
         {
@@ -5911,6 +5914,7 @@ Path '', line 1, position 1.");
 
             Assert.AreEqual(@"<JsonSerializerTest.ChildDataContract xmlns=""http://schemas.datacontract.org/2004/07/Newtonsoft.Json.Tests.Serialization"" xmlns:i=""http://www.w3.org/2001/XMLSchema-instance""><nonVirtualMember>NonVirtualMember!</nonVirtualMember><virtualMember>VirtualMember!</virtualMember><NewMember i:nil=""true""/></JsonSerializerTest.ChildDataContract>", xml);
         }
+#endif
 #endif
 
         [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
@@ -6510,7 +6514,7 @@ Path '', line 1, position 1.");
             Assert.AreEqual(-3, StaticTestClass.z);
         }
 
-#if !(NET20 || NETFX_CORE || DNXCORE50)
+#if !(NET20 || NETFX_CORE || DNXCORE50 || DOT42)
         [Test]
         public void DeserializeDecimalsWithCulture()
         {
@@ -6550,7 +6554,7 @@ Path '', line 1, position 1.");
             Assert.AreEqual(d1.Count, d2.Count);
             Assert.AreEqual(d1[0], d2[0]);
         }
-
+#if !DOT42
         [Test]
         public void ReadForTypeHackFixDateTimeOffset()
         {
@@ -6563,6 +6567,7 @@ Path '', line 1, position 1.");
             Assert.AreEqual(d1.Count, d2.Count);
             Assert.AreEqual(d1[0], d2[0]);
         }
+#endif
 
         [Test]
         public void ReadForTypeHackFixByteArray()
@@ -6823,10 +6828,10 @@ Path '', line 1, position 1.");
 
             v = JsonConvert.DeserializeObject<DateTime?>("");
             Assert.IsNull(v);
-
+#if !DOT42
             v = JsonConvert.DeserializeObject<DateTimeOffset?>("");
             Assert.IsNull(v);
-
+#endif
             v = JsonConvert.DeserializeObject<byte[]>("");
             Assert.IsNull(v);
         }
@@ -6893,7 +6898,7 @@ Path '', line 1, position 1.");
             Assert.AreEqual(DateTimeKind.Local, c.Value.Kind);
         }
 
-#if !NET20
+#if !(NET20  || DOT42)
         [Test]
         public void DeserializeUTC()
         {
@@ -6964,7 +6969,7 @@ Path '', line 1, position 1.");
         }
 #endif
 
-#if !(NETFX_CORE || DNXCORE50)
+#if !(NETFX_CORE || DNXCORE50 || DOT42)
         [Test]
         public void MetroBlogPost()
         {
@@ -7074,11 +7079,12 @@ Path '', line 1, position 1.");
             Assert.AreEqual("bar", values[0].Name);
             Assert.AreEqual("baz", values[1].Name);
         }
-
+#if !DOT42
         private class FooBar
         {
             public DateTimeOffset Foo { get; set; }
         }
+#endif
 
         [Test]
         public void TokenFromBson()
@@ -7221,7 +7227,7 @@ Path '', line 1, position 1.");
             Assert.AreEqual(@"{""Data"":["":::ONE:::"","":::TWO:::"","":::THREE:::""]}", json);
         }
 
-#if !NET20
+#if !(NET20 || DOT42)
         [Test]
         public void DateTimeDictionaryKey_DateTimeOffset_Iso()
         {
@@ -7813,6 +7819,7 @@ Path '', line 1, position 1.");
 #endif
 
 #if !NET20
+#if !DOT42
         [Test]
         public void RoundtripOfDateTimeOffset()
         {
@@ -7827,7 +7834,7 @@ Path '', line 1, position 1.");
             Assert.AreEqual(TimeSpan.FromHours(9.5), dateTimeOffset.Offset);
             Assert.AreEqual("07/19/2012 14:30:00 +09:30", dateTimeOffset.ToString(CultureInfo.InvariantCulture));
         }
-
+#endif
         public class NullableFloats
         {
             public object Object { get; set; }
@@ -7864,7 +7871,7 @@ Path '', line 1, position 1.");
   ""ObjectNull"": null
 }", json);
         }
-
+#if !DOT42
         [Test]
         public void DateFormatString()
         {
@@ -7937,7 +7944,7 @@ Path '', line 1, position 1.");
   ""2000 p.m.""
 ]", json);
         }
-
+#endif
 #if !(NET20 || NET35)
         [Test]
         public void SerializeDeserializeTuple()
@@ -8083,7 +8090,7 @@ Path '', line 1, position 1.");
             Assert.AreEqual(float.PositiveInfinity, doubles[1]);
             Assert.AreEqual(float.NegativeInfinity, doubles[2]);
         }
-
+#if !DOT42
         [Test]
         public void DefaultDateStringFormatVsUnsetDateStringFormat()
         {
@@ -8107,8 +8114,9 @@ Path '', line 1, position 1.");
             Assert.AreEqual(expected, actual);
         }
 #endif
+#endif
 
-#if !NET20
+#if !(NET20 || DOT42)
         public class NullableTestClass
         {
             public bool? MyNullableBool { get; set; }
@@ -8423,7 +8431,7 @@ Path '', line 1, position 1.");
             Assert.AreEqual("ConsoleWriter", restoredDict2.First().Value.PrintTest());
         }
 #endif
-
+#if !DOT42
         [Test]
         public void Main()
         {
@@ -8434,7 +8442,7 @@ Path '', line 1, position 1.");
             Assert.AreEqual(@"{""pa_info"":{""s"":""d""}}", json);
             ParticipantEntity deserializedProduct = JsonConvert.DeserializeObject<ParticipantEntity>(json);
         }
-
+#endif
 #if !(PORTABLE || DNXCORE50 || NETFX_CORE)
         public class ConvertibleId : IConvertible
         {
@@ -8718,7 +8726,7 @@ Path '', line 1, position 1.");
             Assert.AreEqual(dt, d.Keys.ElementAt(0));
         }
 
-#if !NET20
+#if !(NET20 || DOT42)
         [Test]
         public void DateFormatStringWithDictionaryKey_DateTimeOffset()
         {
@@ -8937,7 +8945,7 @@ Path '', line 1, position 1.");
         }
 #endif
 
-#if !NETFX_CORE
+#if !(NETFX_CORE || DOT42)
         [Test]
         public void MailMessageConverterTest()
         {

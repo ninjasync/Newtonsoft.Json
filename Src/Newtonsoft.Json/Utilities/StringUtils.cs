@@ -170,7 +170,7 @@ namespace Newtonsoft.Json.Utilities
                 if (i > 0 && hasNext && !char.IsUpper(chars[i + 1]))
                     break;
 
-#if !(NETFX_CORE || PORTABLE)
+#if !(NETFX_CORE || PORTABLE || DOT42)
                 chars[i] = char.ToLower(chars[i], CultureInfo.InvariantCulture);
 #else
                 chars[i] = char.ToLowerInvariant(chars[i]);

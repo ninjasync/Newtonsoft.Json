@@ -67,9 +67,11 @@ namespace Newtonsoft.Json.Serialization
         public void Populate(JsonReader reader, object target)
         {
             ValidationUtils.ArgumentNotNull(target, "target");
-
+#if !DOT42
             Type objectType = target.GetType();
-
+#else
+            Type objectType = target.GetTypeReflectionSafe();
+#endif
             JsonContract contract = Serializer._contractResolver.ResolveContract(objectType);
 
             if (reader.TokenType == JsonToken.None)
@@ -789,11 +791,14 @@ namespace Newtonsoft.Json.Serialization
 
                 if (createdFromNonDefaultCreator)
                 {
+#if !DONT_HAVE_MULTIDIMARRAYS
                     if (arrayContract.IsMultidimensionalArray)
                     {
                         list = CollectionUtils.ToMultidimensionalArray(list, arrayContract.CollectionItemType, contract.CreatedType.GetArrayRank());
                     }
-                    else if (arrayContract.IsArray)
+                    else 
+#endif
+                    if (arrayContract.IsArray)
                     {
                         Array a = Array.CreateInstance(arrayContract.CollectionItemType, list.Count);
                         list.CopyTo(a, 0);
@@ -954,7 +959,11 @@ namespace Newtonsoft.Json.Serialization
 
                 if (currentValue != null)
                 {
+#if !DOT42
                     propertyContract = GetContractSafe(currentValue.GetType());
+#else
+                    propertyContract = GetContractSafe(currentValue.GetTypeReflectionSafe());
+#endif
 
                     useExistingValue = (!propertyContract.IsReadOnlyOrFixedSize && !propertyContract.UnderlyingType.IsValueType());
                 }
@@ -980,7 +989,11 @@ namespace Newtonsoft.Json.Serialization
             }
             else
             {
+#if !DOT42
                 propertyContract = GetContractSafe(currentValue.GetType());
+#else
+                propertyContract = GetContractSafe(currentValue.GetTypeReflectionSafe());
+#endif
 
                 if (propertyContract != property.PropertyContract)
                     propertyConverter = GetConverter(propertyContract, property.MemberConverter, containerContract, containerProperty);
@@ -1886,7 +1899,7 @@ namespace Newtonsoft.Json.Serialization
                 case ReadType.ReadAsDateTime:
                     reader.ReadAsDateTime();
                     break;
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
                 case ReadType.ReadAsDateTimeOffset:
                     reader.ReadAsDateTimeOffset();
                     break;

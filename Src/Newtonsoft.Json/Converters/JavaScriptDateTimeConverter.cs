@@ -50,7 +50,7 @@ namespace Newtonsoft.Json.Converters
                 DateTime utcDateTime = dateTime.ToUniversalTime();
                 ticks = DateTimeUtils.ConvertDateTimeToJavaScriptTicks(utcDateTime);
             }
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
             else if (value is DateTimeOffset)
             {
                 DateTimeOffset dateTimeOffset = (DateTimeOffset)value;
@@ -109,7 +109,7 @@ namespace Newtonsoft.Json.Converters
             if (reader.TokenType != JsonToken.EndConstructor)
                 throw JsonSerializationException.Create(reader, "Unexpected token parsing date. Expected EndConstructor, got {0}.".FormatWith(CultureInfo.InvariantCulture, reader.TokenType));
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
             if (t == typeof(DateTimeOffset))
                 return new DateTimeOffset(d);
 #endif

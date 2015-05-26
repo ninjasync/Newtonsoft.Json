@@ -146,6 +146,7 @@
     <Compile Include="Serialization\ReflectionAttributeProvider.cs" />
     <Compile Include="Serialization\TraceJsonReader.cs" />
     <Compile Include="Serialization\TraceJsonWriter.cs" />
+    <Compile Include="SerializedParameter.cs" />
     <Compile Include="StringEscapeHandling.cs" />
     <Compile Include="TraceLevel.cs" />
     <Compile Include="Utilities\DateTimeParser.cs" />

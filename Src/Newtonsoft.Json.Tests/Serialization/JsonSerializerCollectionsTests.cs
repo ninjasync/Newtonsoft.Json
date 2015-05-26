@@ -709,7 +709,7 @@ namespace Newtonsoft.Json.Tests.Serialization
             Assert.AreEqual("3", values[1].Value[0]);
             Assert.AreEqual("4", values[1].Value[1]);
         }
-
+#if !DOT42
         [Test]
         public void DeserializeNullableKeyValuePairArray()
         {
@@ -728,6 +728,7 @@ namespace Newtonsoft.Json.Tests.Serialization
             Assert.AreEqual("3", values[2].Value.Value[0]);
             Assert.AreEqual("4", values[2].Value.Value[1]);
         }
+#endif
 
         [Test]
         public void DeserializeNullToNonNullableKeyValuePairArray()
@@ -864,7 +865,7 @@ namespace Newtonsoft.Json.Tests.Serialization
             Assert.AreEqual(13, c2.Array[0]);
         }
 #endif
-
+#if !DOT42
         [Test]
         public void SerializeArray2D()
         {
@@ -1340,7 +1341,7 @@ namespace Newtonsoft.Json.Tests.Serialization
             Assert.AreEqual(2, values2.Count);
             Assert.AreEqual("EventName!", values2[0][0, 0].EventName);
         }
-
+#endif
         [Test]
         public void PrimitiveValuesInObjectArray()
         {

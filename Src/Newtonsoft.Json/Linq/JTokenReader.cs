@@ -110,7 +110,7 @@ namespace Newtonsoft.Json.Linq
             return ReadAsDateTimeInternal();
         }
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
         /// <summary>
         /// Reads the next JSON token from the stream as a <see cref="Nullable{DateTimeOffset}"/>.
         /// </summary>

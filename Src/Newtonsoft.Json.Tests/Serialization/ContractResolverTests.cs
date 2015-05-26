@@ -140,11 +140,12 @@ namespace Newtonsoft.Json.Tests.Serialization
 
             Assert.AreEqual(null, p.GetResolvedDefaultValue());
             Assert.AreEqual(null, p.DefaultValue);
-
+#if !DOT42
             p.PropertyType = typeof(CompareOptions);
 
             Assert.AreEqual(CompareOptions.None, (CompareOptions)p.GetResolvedDefaultValue());
             Assert.AreEqual(null, p.DefaultValue);
+#endif
         }
 
         [Test]

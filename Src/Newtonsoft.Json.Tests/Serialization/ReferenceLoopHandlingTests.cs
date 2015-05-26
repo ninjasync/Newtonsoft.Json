@@ -36,7 +36,7 @@ using Assert = Newtonsoft.Json.Tests.XUnitAssert;
 #else
 using NUnit.Framework;
 #endif
-#if !(NET20 || NET35)
+#if !(NET20 || NET35 || DOT42)
 using System.Dynamic;
 #endif
 using System.Runtime.Serialization;

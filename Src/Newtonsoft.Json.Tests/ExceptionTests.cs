@@ -87,6 +87,7 @@ namespace Newtonsoft.Json.Tests
             Assert.AreEqual("Inner!", exception.InnerException.Message);
         }
 
+#if !DOT42
 #pragma warning disable 618
         [Test]
         public void JsonSchemaException()
@@ -103,5 +104,6 @@ namespace Newtonsoft.Json.Tests
             Assert.AreEqual("Inner!", exception.InnerException.Message);
         }
 #pragma warning restore 618
+#endif
     }
 }

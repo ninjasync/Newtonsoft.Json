@@ -466,7 +466,8 @@ namespace Newtonsoft.Json.Tests
         [Test]
         public void ToStringInvalid()
         {
-            ExceptionAssert.Throws<ArgumentException>(() => { JsonConvert.ToString(new Version(1, 0)); }, "Unsupported type: System.Version. Use the JsonSerializer class to get the object's JSON representation.");
+            ExceptionAssert.Throws<ArgumentException>(() => { JsonConvert.ToString(new Version(1, 0)); }, "Unsupported type: System.Version. Use the JsonSerializer class to get the object's JSON representation.",
+                                                                                                          "Unsupported type: class system.Version. Use the JsonSerializer class to get the object's JSON representation.");
         }
 
         [Test]
@@ -528,7 +529,7 @@ namespace Newtonsoft.Json.Tests
             value = new DateTime(DateTimeUtils.InitialJavaScriptDateTicks, DateTimeKind.Utc);
             Assert.AreEqual(@"""\/Date(0)\/""", JsonConvert.ToString((DateTime)value, DateFormatHandling.MicrosoftDateFormat, DateTimeZoneHandling.RoundtripKind));
 
-#if !NET20
+#if !(NET20 || DOT42)
             value = new DateTimeOffset(DateTimeUtils.InitialJavaScriptDateTicks, TimeSpan.Zero);
             Assert.AreEqual(@"""1970-01-01T00:00:00+00:00""", JsonConvert.ToString(value));
 
@@ -576,7 +577,7 @@ namespace Newtonsoft.Json.Tests
             int i = JsonConvert.DeserializeObject<int>("1");
             Assert.AreEqual(1, i);
 
-#if !NET20
+#if !(NET20 || DOT42)
             DateTimeOffset d = JsonConvert.DeserializeObject<DateTimeOffset>(@"""\/Date(-59011455539000+0000)\/""");
             Assert.AreEqual(new DateTimeOffset(new DateTime(100, 1, 1, 1, 1, 1, DateTimeKind.Utc)), d);
 #endif
@@ -610,6 +611,7 @@ namespace Newtonsoft.Json.Tests
             Assert.AreEqual(JsonConvert.NaN, JsonConvert.ToString(Double.NaN));
         }
 
+#if !DOT42
         [Test]
         public void DecimalToString()
         {
@@ -628,6 +630,7 @@ namespace Newtonsoft.Json.Tests
             Assert.AreEqual("79228162514264337593543950335.0", JsonConvert.ToString(Decimal.MaxValue));
             Assert.AreEqual("-79228162514264337593543950335.0", JsonConvert.ToString(Decimal.MinValue));
         }
+#endif
 
         [Test]
         public void StringEscaping()
@@ -765,7 +768,7 @@ namespace Newtonsoft.Json.Tests
             Assert.AreEqual(@"\/Date(-62135596800000)\/", result.MsDateUnspecified);
             Assert.AreEqual(@"\/Date(-62135596800000)\/", result.MsDateUtc);
 
-#if !NET20
+#if !(NET20 || DOT42)
             result = TestDateTime("DateTimeOffset TimeSpan Zero", new DateTimeOffset(2000, 1, 1, 1, 1, 1, TimeSpan.Zero));
             Assert.AreEqual("2000-01-01T01:01:01+00:00", result.IsoDateRoundtrip);
             Assert.AreEqual(@"\/Date(946688461000+0000)\/", result.MsDateRoundtrip);
@@ -837,7 +840,7 @@ namespace Newtonsoft.Json.Tests
 
             TestDateTimeFormat(value, new IsoDateTimeConverter());
 
-#if !NETFX_CORE
+#if !(NETFX_CORE || DOT42)
             if (value is DateTime)
             {
                 Console.WriteLine(XmlConvert.ToString((DateTime)(object)value, XmlDateTimeSerializationMode.RoundtripKind));
@@ -848,7 +851,7 @@ namespace Newtonsoft.Json.Tests
             }
 #endif
 
-#if !NET20
+#if !(NET20 || DOT42)
             MemoryStream ms = new MemoryStream();
             DataContractSerializer s = new DataContractSerializer(typeof(T));
             s.WriteObject(ms, value);
@@ -871,7 +874,7 @@ namespace Newtonsoft.Json.Tests
             }
             else
             {
-#if !NET20
+#if !(NET20 || DOT42)
                 date = JsonConvert.ToString((DateTimeOffset)(object)value, format);
 #endif
             }
@@ -922,11 +925,18 @@ namespace Newtonsoft.Json.Tests
                 Assert.AreEqual(valueTicks, parsedTicks);
             }
         }
-
+#if !(NET20 || DOT42)
         public static long GetTicks(object value)
         {
             return (value is DateTime) ? ((DateTime)value).Ticks : ((DateTimeOffset)value).Ticks;
         }
+#else
+        public static long GetTicks(object value)
+        {
+            return ((DateTime)value).Ticks;
+        }
+
+#endif
 
         public static string Write(object value, JsonConverter converter)
         {
@@ -1068,7 +1078,7 @@ namespace Newtonsoft.Json.Tests
             Assert.AreEqual("Bad Boys", m.Name);
         }
 
-#if !NET20
+#if !(NET20 || DOT42)
         [Test]
         public void TestJsonDateTimeOffsetRoundtrip()
         {

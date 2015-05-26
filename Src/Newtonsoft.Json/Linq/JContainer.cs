@@ -98,6 +98,7 @@ namespace Newtonsoft.Json.Linq
         protected abstract IList<JToken> ChildrenTokens { get; }
 
         private object _syncRoot;
+
 #if !(PORTABLE40)
         private bool _busy;
 #endif
@@ -953,7 +954,6 @@ namespace Newtonsoft.Json.Linq
             {
                 if (_syncRoot == null)
                     Interlocked.CompareExchange(ref _syncRoot, new object(), null);
-
                 return _syncRoot;
             }
         }

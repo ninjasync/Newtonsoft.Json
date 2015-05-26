@@ -841,7 +841,7 @@ keyword such as type of business.""
             }, @"Accessed JConstructor values with invalid key value: ""purple"". Argument position index expected.");
         }
 
-#if !NET20
+#if !(NET20|| DOT42)
         [Test]
         public void ToStringJsonConverter()
         {
@@ -1210,7 +1210,7 @@ keyword such as type of business.""
             Assert.AreEqual("hi!", (string)a[0]);
         }
 
-#if !(NET35 || NET20)
+#if !(NET35 || NET20 || DOT42)
         [Test]
         public void ExceptionFromOverloadWithJValue()
         {

@@ -29,7 +29,7 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
-#if NET20
+#if NET20 || DOT42
 using Newtonsoft.Json.Serialization;
 #else
 using System.Runtime.Serialization.Json;
@@ -191,8 +191,11 @@ namespace Newtonsoft.Json.Tests
 
     [TestFixture]
     public abstract class TestFixtureBase
+#if DOT42
+        : global::Dot42.Test.NUnitTestCase
+#endif
     {
-#if !NET20
+#if !(NET20 || DOT42)
         protected string GetDataContractJsonSerializeResult(object o)
         {
             MemoryStream ms = new MemoryStream();
@@ -261,7 +264,7 @@ namespace Newtonsoft.Json.Tests
         protected void TestSetup()
 #endif
         {
-#if !NETFX_CORE
+#if !(NETFX_CORE || DOT42)
             //CultureInfo turkey = CultureInfo.CreateSpecificCulture("tr");
             //Thread.CurrentThread.CurrentCulture = turkey;
             //Thread.CurrentThread.CurrentUICulture = turkey;
@@ -297,7 +300,7 @@ namespace Newtonsoft.Json.Tests
     {
         public static void IsInstanceOfType(Type t, object instance)
         {
-#if NETFX_CORE
+#if NETFX_CORE || DOT42
             if (!instance.GetType().IsAssignableFrom(t))
                 throw new Exception("Not instance of type");
 #else
@@ -312,7 +315,7 @@ namespace Newtonsoft.Json.Tests
 
         public static void Contains(IList collection, object value, string message)
         {
-#if !(NETFX_CORE || DNXCORE50)
+#if !(NETFX_CORE || DNXCORE50 || DOT42)
             Assert.Contains(value, collection, message);
 #else
             if (!collection.Cast<object>().Any(i => i.Equals(value)))
@@ -363,6 +366,7 @@ namespace Newtonsoft.Json.Tests
             }
             catch (TException ex)
             {
+#if !DOT42 // don't compare exception messages, since class names don't match.
                 if (possibleMessages != null && possibleMessages.Length > 0)
                 {
                     bool match = false;
@@ -378,6 +382,7 @@ namespace Newtonsoft.Json.Tests
                     if (!match)
                         throw new Exception("Unexpected exception message." + Environment.NewLine + "Expected one of: " + string.Join(Environment.NewLine, possibleMessages) + Environment.NewLine + "Got: " + ex.Message + Environment.NewLine + Environment.NewLine + ex);
                 }
+#endif
             }
             catch (Exception ex)
             {

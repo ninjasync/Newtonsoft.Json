@@ -27,7 +27,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
-#if !(NET20 || NET35 || PORTABLE || DNXCORE50)
+#if !(NET20 || NET35 || PORTABLE || DNXCORE50|| DOT42)
 using System.Numerics;
 #endif
 using Newtonsoft.Json.Serialization;
@@ -46,7 +46,7 @@ using NUnit.Framework;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Collections;
-#if !(NETFX_CORE || DNXCORE50)
+#if !(NETFX_CORE || DNXCORE50 || DOT42)
 using System.Web.UI;
 #endif
 #if NET20

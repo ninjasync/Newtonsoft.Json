@@ -574,7 +574,7 @@ namespace Newtonsoft.Json
                     break;
                 case JsonToken.Date:
                     ValidationUtils.ArgumentNotNull(value, "value");
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
                     if (value is DateTimeOffset)
                         WriteValue((DateTimeOffset)value);
                     else
@@ -952,7 +952,7 @@ namespace Newtonsoft.Json
             InternalWriteValue(JsonToken.Date);
         }
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
         /// <summary>
         /// Writes a <see cref="DateTimeOffset"/> value.
         /// </summary>
@@ -1153,7 +1153,7 @@ namespace Newtonsoft.Json
                 WriteValue(value.Value);
         }
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
         /// <summary>
         /// Writes a <see cref="Nullable{DateTimeOffset}"/> value.
         /// </summary>
@@ -1351,7 +1351,7 @@ namespace Newtonsoft.Json
                 case PrimitiveTypeCode.DateTimeNullable:
                     writer.WriteValue((value == null) ? (DateTime?)null : (DateTime)value);
                     break;
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
                 case PrimitiveTypeCode.DateTimeOffset:
                     writer.WriteValue((DateTimeOffset)value);
                     break;

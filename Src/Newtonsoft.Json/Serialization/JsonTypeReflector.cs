@@ -416,8 +416,10 @@ namespace Newtonsoft.Json.Serialization
                     return DynamicReflectionDelegateFactory.Instance;
 
                 return LateBoundReflectionDelegateFactory.Instance;
-#else
+#elif !DOT42
                 return ExpressionReflectionDelegateFactory.Instance;
+#else
+                return LateBoundReflectionDelegateFactory.Instance;
 #endif
             }
         }

@@ -597,7 +597,7 @@ namespace Newtonsoft.Json
             }
         }
 
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
         /// <summary>
         /// Writes a <see cref="DateTimeOffset"/> value.
         /// </summary>
@@ -656,7 +656,7 @@ namespace Newtonsoft.Json
             InternalWriteValue(JsonToken.String);
 
             string text;
-#if (NET35 || NET20)
+#if (NET35 || NET20 || DOT42)
             text = value.ToString();
 #else
             text = value.ToString(null, CultureInfo.InvariantCulture);

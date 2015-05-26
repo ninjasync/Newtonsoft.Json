@@ -43,7 +43,7 @@ namespace Newtonsoft.Json.Converters
         {
             if (objectType == typeof(DateTime) || objectType == typeof(DateTime?))
                 return true;
-#if !NET20
+#if !NET20 && !DONT_HAVE_DATETIMEOFFSET
             if (objectType == typeof(DateTimeOffset) || objectType == typeof(DateTimeOffset?))
                 return true;
 #endif

@@ -330,7 +330,11 @@ namespace Newtonsoft.Json.Utilities
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
             if (_dictionary != null)
+#if !DOT42
                 return _dictionary.Cast<DictionaryEntry>().Select(de => new KeyValuePair<TKey, TValue>((TKey)de.Key, (TValue)de.Value)).GetEnumerator();
+#else
+                return _dictionary.Cast<DictionaryEntry>().Select(CreateKeyValuePair).GetEnumerator();
+#endif
 #if !(NET40 || NET35 || NET20 || PORTABLE40)
             else if (_readOnlyDictionary != null)
                 return _readOnlyDictionary.GetEnumerator();
@@ -338,6 +342,13 @@ namespace Newtonsoft.Json.Utilities
             else
                 return _genericDictionary.GetEnumerator();
         }
+
+#if DOT42
+        private KeyValuePair<TKey, TValue> CreateKeyValuePair(DictionaryEntry de)
+        {
+            return new KeyValuePair<TKey, TValue>((TKey)de.Key, (TValue)de.Value);
+        }
+#endif
 
         IEnumerator IEnumerable.GetEnumerator()
         {
@@ -533,7 +544,6 @@ namespace Newtonsoft.Json.Utilities
             {
                 if (_syncRoot == null)
                     Interlocked.CompareExchange(ref _syncRoot, new object(), null);
-
                 return _syncRoot;
             }
         }
